@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { makeStyles } from '@mui/styles' 
 import TitleHeader from './Title/Title'
 import RightSide from './RightSide/RightSide'
@@ -9,7 +8,6 @@ const useStyles= makeStyles({
     height: 60,
     padding: 8,
     boxSizing: 'border-box',
-    position: 'fixed',
     top: 0,
     left: 0,
     right: 0,

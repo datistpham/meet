@@ -5,7 +5,7 @@ import { useStyles } from "../../Index"
 const IndexRootFunc = (props: any) => {
     const classes= useStyles()
     return (
-        <div className={classes.p}>
+        <div className={`${classes.p} _4500`}>
             <ButtonNewMeetingRoom />
             <ButtonJoinMeetingRoom />
         </div>

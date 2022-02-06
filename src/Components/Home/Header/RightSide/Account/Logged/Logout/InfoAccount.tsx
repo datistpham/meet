@@ -15,6 +15,7 @@ export const useStyles= makeStyles({
         right: 10,
         top: 62,
         zIndex: 999,
+        backgroundColor: '#fff'
     },
     accountSelf: {
         width: 'calc(100% - 66px)',

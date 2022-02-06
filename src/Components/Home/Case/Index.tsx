@@ -4,13 +4,13 @@ import Main from './Main/Main'
 export const useStyles= makeStyles({
     mainIndex: {
         width: '100%',
-        position: 'relative',
-        top: 60,
+        position: 'static',
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
         height: 'calc(100% - 60px)',
-        userSelect: 'none'
+        userSelect: 'none',
+
     },
     main: {
         width: '50%',
@@ -43,7 +43,8 @@ export const useStyles= makeStyles({
         display: 'flex',
         alignItems: "center",
         justifyContent: "center",
-        cursor: 'pointer'
+        cursor: 'pointer',
+        position: 'relative'
     },
     buttonJoinMeetingRoom: {
         width: 264,
@@ -96,6 +97,42 @@ export const useStyles= makeStyles({
         fontSize: 16,
         fontWeight: 600,
         color: "#333"
+    },
+    f: {
+        width: 338,
+        boxSizing: 'border-box',
+        padding: "8px 0",
+        borderRadius: 4,
+        boxShadow: "0 2px 10px rgb(0 0 0 / 20%)",
+        position: 'absolute',
+        backgroundColor: "#fff",
+        zIndex: 8,
+        left: 0,
+        top: 0,
+        marginTop: -5
+    },
+    containerF: {
+        padding: "0 16px",
+        height: 48,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        transition: 'all .1s linear',   
+        "&:hover": {
+            backgroundColor: "#f2f0f5"
+        }
+    },
+    f1: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 32
+    },
+    f2: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 600
     }
 })
 const IndexMainSection = () => {

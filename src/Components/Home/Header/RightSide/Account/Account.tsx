@@ -5,7 +5,7 @@ import Logged from './Logged/Logged'
 import { lazy, Suspense } from 'react'
 import { Animate } from 'react-simple-animate'
 const Index = lazy(() => {
-    return new Promise(resolve => {
+    return new Promise((resolve: any) => {
       setTimeout(() => resolve(import("./NoLogin/Index")), 1000);
     });
   });
@@ -62,7 +62,7 @@ const Account = () => {
     return (
         <div className={classes.account}>
             {
-                email.length!== 0 ?
+                email!.length!== 0 ?
                 <Animate
                     play
                     start={{ opacity: 0, filter: 'blur(10px)' }}

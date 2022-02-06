@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { makeStyles } from '@mui/styles'
 import Title1 from './Title1'
 import Title2 from './Title2'
@@ -21,7 +20,7 @@ export const useStyles= makeStyles({
   title2: {
     fontSize: 24,
     color: '#5f6368',
-    fontWeight: 500,
+    fontWeight: 600,
     cursor: 'pointer',
     textDecoration: "none"
   },

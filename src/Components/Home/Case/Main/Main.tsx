@@ -6,7 +6,7 @@ import Title2 from "./Title2"
 const Main= ()=> {
     const classes= useStyles()
     return (
-        <div className={classes.main}>
+        <div className={`${classes.main} _2700`}>
             <Title1 />
             <Title2 />
             <IndexRootFunc />

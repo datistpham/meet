@@ -15,7 +15,7 @@ const Logged = (props: any) => {
         setOpenPopup(prev=> !prev)
     }
     
-    const handleOutSidePopup= (e: any)=> {
+    const handleOutSidePopup= (e: Event)=> {
         if(myRef.current && !myRef.current.contains(e.target)) {
             setOpenPopup(()=> false)
         }

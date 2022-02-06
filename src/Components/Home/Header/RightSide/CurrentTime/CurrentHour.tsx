@@ -1,4 +1,3 @@
-import React from 'react'
 import date from 'date-and-time'
 import { useEffect, useState } from 'react'
 

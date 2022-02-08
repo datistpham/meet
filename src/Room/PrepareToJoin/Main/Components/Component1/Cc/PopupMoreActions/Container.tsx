@@ -1,4 +1,5 @@
 import ClosePopup from "./C/ClosePopup"
+import D from "./D/D"
 import { useStyles } from "./Styles/style"
 
 const Container= (props: any)=> {
@@ -8,6 +9,7 @@ const Container= (props: any)=> {
            <div className={classes.container2}>
                 <div className={classes.container3}>
                     <ClosePopup close={props.close} />
+                    <D />
                 </div>
             </div> 
         </div>

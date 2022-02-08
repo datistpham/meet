@@ -60,5 +60,63 @@ export const useStyles= makeStyles({
         "&:hover": {
             backgroundColor: "#f2f0f5",
         }
-    }
+    },
+    d: {
+        width: '100%',
+        height: 64,
+        display: 'flex',
+        flexDirection: "row",
+        position: 'relative',
+
+    }, d1: { 
+        display: 'flex',
+        flex: "1 0 auto",
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: "0 16px",
+        cursor: "pointer",
+        transition: "all .15s ease-in",
+        "&:hover": {
+            backgroundColor: "#f2f0f5"
+        }
+    },
+        
+    containerd: {
+        width: '100%',
+        height: "100%",
+        display: 'flex',
+        flexDirection: 'row',
+        transform: "none",
+        willChange: "transform"
+    },
+    d11: {
+
+    },
+    d12: {
+        color: "#5f6368",
+        fontWeight: 600,
+        fontSize: 14
+    },
+     containerd1: {
+        display: 'flex',
+        flexDirection: 'column', 
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: "100%", 
+        position: 'relative',
+        
+     },
+     containerd1active: {
+         position: "relative",
+        '&::after': {
+            display: "block",
+            content: '""',
+            position: "absolute",
+            zIndex: 10,
+            bottom: 0,
+            width: '100%',
+            borderBottom: "3px solid #2e89ff",
+            borderRadius: "10px 10px 0 0"            
+        }
+    },
 })

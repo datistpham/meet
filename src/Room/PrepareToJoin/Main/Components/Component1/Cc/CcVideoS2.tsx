@@ -6,12 +6,12 @@ import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined'
 import MicOffIcon from '@mui/icons-material/MicOff';
 import ContainerC from "./CcVideoS2/ContainerC"
 import ContainerC1 from './CcVideoS2/ContaierC1'
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { turnOn_Off } from './F/Turn_on_off'
 import { useContext } from 'react'
 import { ContextRoom } from '../../../../../Index'
-import PopupMoreActions from './PopupMoreActions/PopupMoreActions';
-
+import { CircularProgress } from '@mui/material';
+const PopupMoreActions= lazy(()=> import('./PopupMoreActions/PopupMoreActions'))
 const CcVideoS2= (props: any)=> {
     const [open ,setOpen]= useState<boolean>(()=> false)
     const handleClickOpen= ()=> {
@@ -25,7 +25,9 @@ const CcVideoS2= (props: any)=> {
         <div className="_1800" style={{position: 'absolute', bottom: 0, left: 0, backgroundImage: "-webkit-linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%)", width: '100%', height: 80, zIndex: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} >
             <ContainerCS />
             <ContainerC1 actionF2={()=> console.log()} actionF={handleClickOpen} icon={<AutoAwesomeOutlinedIcon className="_5000" />} title="Apply visual effects" />
-            <PopupMoreActions open={open} onClose={handleClose} />
+            <Suspense fallback={<div style={{position: "fixed", zIndex: 999, top: 0, left: 0, right: 0, width: '100%', height: '100%', backgroundColor: "#fff"}}><div style={{top: "50%", left: "50%", transform: "translate(-50%, -50%)", position: 'absolute'}}><CircularProgress /></div></div>}>
+                <PopupMoreActions open={open} onClose={handleClose} />
+            </Suspense>
         </div>
     )
 }

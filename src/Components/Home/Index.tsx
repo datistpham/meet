@@ -27,7 +27,7 @@ const theme= createTheme({
     }
 })
 
-const HomeRoot = (props) => {
+const HomeRoot = (props: any) => {
     const classes= useStyles()
     const navigate= useNavigate()
     const create=() =>  {

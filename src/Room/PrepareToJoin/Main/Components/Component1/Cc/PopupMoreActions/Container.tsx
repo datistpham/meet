@@ -14,7 +14,7 @@ const initialContext: Context= {
 }
 export const ContextPopup= createContext(initialContext)
 const Container= (props: any)=> {
-
+    
     const classes= useStyles()
     const userVideo= useRef<any>()
     const constraints = useMemo(()=> ({
@@ -37,14 +37,15 @@ const Container= (props: any)=> {
         }
         getUser()
     },[constraints])
+
     return (
         <ContextPopup.Provider value={{userVideo: userVideo}}>
             <div className={classes.container}>
                 <div className={`_5600 ${classes.container2}`}>
                     <div className={classes.container3}>
                         <ClosePopup close={props.close} />
-                        <D />
-                        <Case toggleVideo={props.toggleVideo} />
+                        <D state1={props.state1} state2={props.state2} state3={props.state3} openState1={props.openState1} openState2={props.openState2} openState3={props.openState3} />
+                        <Case />
                     </div>
                 </div> 
             </div>

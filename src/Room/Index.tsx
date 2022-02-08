@@ -53,7 +53,7 @@ export const Video= (props: any)=> {
         <StyledVideo playsInline autoPlay ref={ref} />
     )
 }
-const ContextProVider= React.memo(() => {
+const ContextProVider= () => {
     const [peers, setPeers]= useState<any>([])
     const socketRef= useRef<any>(null)
     const userVideo= useRef<any>(null)
@@ -75,10 +75,10 @@ const ContextProVider= React.memo(() => {
         const getUserMedia= async ()=> {
             try {
                 const stream= await navigator.mediaDevices.getUserMedia(videoConstraints)
+                stream.getVideoTracks()[0].applyConstraints(constraints)
                 setDevices((prev: any)=> ({...prev,audioName: stream.getTracks()[0].label ,webcamName: stream.getTracks()[1].label}))
                 setStream(stream)
                 userVideo.current.srcObject= stream
-                stream.getVideoTracks()[0].applyConstraints(constraints)
                 socketRef!.current.emit("join room", roomID)
                 socketRef!.current.on("all users", (users: any)=> {
                     const peers: any= []
@@ -187,5 +187,5 @@ const ContextProVider= React.memo(() => {
 
         </ContextRoom.Provider>
     )
-})
+}
 export {ContextProVider, ContextRoom }

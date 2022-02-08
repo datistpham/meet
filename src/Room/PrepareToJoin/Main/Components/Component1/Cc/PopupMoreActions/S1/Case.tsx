@@ -5,7 +5,7 @@ const Case= (props: any)=> {
     const classes= useStyles()
     return (
         <div className={classes.case}>
-            <CCase toggleVideo={props.toggleVideo} />
+            <CCase />
         </div>
     )
 }

@@ -10,7 +10,6 @@ const D1= (props: any)=> {
     const myRef= useRef<any>(null)
     const handleClickOutside= (e: Event)=> {
         if(myRef.current && !myRef.current.contains(e.target)) {
-            
             setState(prev=> ({...prev, a1: false}))
         }
     }
@@ -22,8 +21,8 @@ const D1= (props: any)=> {
         return ()=> document.removeEventListener("mousedown", handleClickOutside)
     },[])
     return (
-        <div onClick={()=> handleClickInside()} ref={myRef} className={`${classes.d1}`} >
-            <ContainerD1 a1={state.a1} icon={props.icon} title={props.title} />
+        <div onClick={()=> {handleClickInside();props.openState()}} ref={myRef} className={`${classes.d1}`} >
+            <ContainerD1 a1={state.a1} a2={props.state} icon={props.icon} title={props.title} />
         </div>
     )
 }

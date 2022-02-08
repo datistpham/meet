@@ -26,7 +26,7 @@ const CcVideoVip= (props: any)=> {
             <Suspense fallback={<div style={{width: "100%", height: "100%",position: "absolute", top: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center',alignItems: "center", backgroundColor: "#000", zIndex: 4}}><div style={{fontSize: 24, color: "#fff", textAlign: "center", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>Camera is running</div></div>}>
                 <VideoC />
             </Suspense>
-            <CcVideoS2 toggleVideoF={ToggleVideo} toggleVideo={microConnect.toggleVideo} />
+            <CcVideoS2 handleClickOpen={props.handleClickOpen} open={props.open} handleClose={props.handleClose} state1={props.state1} state2={props.state2} state3={props.state3} openState1={props.openState1} openState2={props.openState2} openState3={props.openState3} toggleVideoF={ToggleVideo} toggleVideo={microConnect.toggleVideo} />
             <TitleCameraOff />
             {
                 microConnect.micro=== true &&

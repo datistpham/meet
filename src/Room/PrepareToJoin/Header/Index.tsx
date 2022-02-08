@@ -1,7 +1,7 @@
+import React from "react"
 import { makeStyles } from "@mui/styles"
 import TitleHeader from "../../../Components/Home/Header/Title/Title"
 import RightSideP from "./RightSide/RightSideP"
-
 const useStyles= makeStyles({
     header: {
         width: '100%',
@@ -28,4 +28,4 @@ const Header= ()=> {
     )
 }
 
-export default Header
+export default React.memo(Header)

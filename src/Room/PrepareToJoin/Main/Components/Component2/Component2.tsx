@@ -1,3 +1,4 @@
+import React from "react"
 import { useStyles } from "../../../../MakeStyles/MakeStyles"
 import ContainerC2 from "./Container/ContainerC2"
 
@@ -10,4 +11,4 @@ const Component2= ()=> {
     )
 }
 
-export default Component2
+export default React.memo(Component2)

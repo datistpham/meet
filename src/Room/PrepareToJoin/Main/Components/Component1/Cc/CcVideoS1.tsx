@@ -1,6 +1,6 @@
 import C from "./CcVideoS2/C"
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-
+import React from "react"
 const CcVideoS1= (props: any)=> {
     return (
         <div className="_1800" style={{position: 'absolute', top: 0, left: 0, backgroundImage: "-webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%)", width: '100%', height: 80, zIndex: 3}} >
@@ -11,4 +11,4 @@ const CcVideoS1= (props: any)=> {
     )
 }
 
-export default CcVideoS1
+export default React.memo(CcVideoS1)

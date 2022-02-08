@@ -1,10 +1,10 @@
 import { useStyles } from "../../../../../MakeStyles/MakeStyles"
 import Cp from "./Cp"
-const IndexCheckDevices= ()=> {
+const IndexCheckDevices= (props: any)=> {
     const classes= useStyles()
     return (
         <div className={classes.IndexCheckDevices} >
-            <Cp />
+            <Cp actionF={props.actionF} />
         </div>
     )
 }

@@ -13,22 +13,13 @@ import { ContextRoom } from '../../../../../Index'
 import { CircularProgress } from '@mui/material';
 const PopupMoreActions= lazy(()=> import('./PopupMoreActions/PopupMoreActions'))
 const CcVideoS2= (props: any)=> {
-    const [open ,setOpen]= useState<boolean>(()=> false)
-    const handleClickOpen= ()=> {
-        setOpen(()=> true)
-        props.toggleVideoF()
-    }
-
-    const handleClose= ()=> {
-        setOpen(()=> false)
-        props.toggleVideoF()
-    }
+    
     return (
         <div className="_1800" style={{position: 'absolute', bottom: 0, left: 0, backgroundImage: "-webkit-linear-gradient(bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%)", width: '100%', height: 80, zIndex: 3, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} >
             <ContainerCS />
-            <ContainerC1 actionF2={()=> console.log()} actionF={handleClickOpen} icon={<AutoAwesomeOutlinedIcon className="_5000" />} title="Apply visual effects" />
+            <ContainerC1 actionF2={()=> props.openState2()} actionF={props.handleClickOpen} icon={<AutoAwesomeOutlinedIcon className="_5000" />} title="Apply visual effects" />
             <Suspense fallback={<div style={{position: "fixed", zIndex: 999, top: 0, left: 0, right: 0, width: '100%', height: '100%', backgroundColor: "#fff"}}><div style={{top: "50%", left: "50%", transform: "translate(-50%, -50%)", position: 'absolute'}}><CircularProgress /></div></div>}>
-                <PopupMoreActions open={open} onClose={handleClose} toggleVideo={props.toggleVideo}/>
+                <PopupMoreActions open={props.open} onClose={props.handleClose} state1={props.state1} state2={props.state2} state3={props.state3} openState1={props.openState1} openState2={props.openState2} openState3={props.openState3} />
             </Suspense>
         </div>
     )

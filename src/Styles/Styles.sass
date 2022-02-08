@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap')
+$baseWidth: 700px
 *
     font-family: 'Quicksand', sans-serif
     padding: 0
@@ -26,7 +27,12 @@ html
         border: none !important
         width: 48px !important
         height: 48px !important
- 
+._8200
+    svg
+        color: #2e89ff !important
+    ._9600
+        color: #2e89ff !important 
+
 @media screen and (max-width: 960px)
     ._2700
         width: 100% !important
@@ -51,3 +57,24 @@ html
         width: 448px !important
     ._3200
         width: calc( 448px + 24px ) !important
+    ._2750
+        flex-direction: column !important
+    ._9340
+        padding-top: 16px
+        padding-left: 0 !important
+        height: 100px !important
+        width: 100% !important
+        overflow: auto
+    ._3042
+        width: 100% !important
+// @media all and (display-mode: fullscreen)
+//     ._8700
+//         width: calc( 100% - 13rem ) !important
+@media screen and (max-width: 800px)
+    ._5600
+        width: calc( 100% - 2rem )
+@for $i from 2 through 15
+    @media screen and (min-width: unquote("calc(700px + #{$i * 50}px)"))
+        ._5600
+            width: calc( 100% - #{$i}rem )
+         

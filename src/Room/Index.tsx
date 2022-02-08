@@ -67,7 +67,7 @@ const ContextProVider= React.memo(() => {
         height: {min: 480, ideal: 720},
         advanced: [
           {width: 1920, height: 1280},
-          {aspectRatio: 1.333}
+          {aspectRatio: 1.777}
         ]
       }), [])
     useEffect(()=> {
@@ -174,7 +174,7 @@ const ContextProVider= React.memo(() => {
                 backgroundColor2: devices.backgroundColor2, 
                 borderColor2: devices.borderColor2,
                 audioName: devices.audioName,
-                webcamName: devices.webcamName
+                webcamName: devices.webcamName,
             }}
         >
             <ContainerP />

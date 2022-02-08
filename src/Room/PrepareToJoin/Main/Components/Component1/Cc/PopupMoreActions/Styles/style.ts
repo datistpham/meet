@@ -8,10 +8,10 @@ export const useStyles= makeStyles({
         display: 'flex',
         justifyContent: "center",
         alignItems: 'center',
+        userSelect: "none"
     },
     container2: {
         padding: "20px 0",
-        width: "calc(100vw - 2rem)",
         maxWidth: 'calc(100vw - 2rem)',
         borderWidth: 0,
         height: '100%',
@@ -114,9 +114,61 @@ export const useStyles= makeStyles({
             position: "absolute",
             zIndex: 10,
             bottom: 0,
-            width: '100%',
+            width: "100%",
             borderBottom: "3px solid #2e89ff",
-            borderRadius: "10px 10px 0 0"            
-        }
+            borderRadius: "10px 10px 0 0",
+        },
+        
     },
+    case: {
+        width: "100%",
+        boxSizing: "border-box",
+        padding: "16px 24px 24px 24px",
+        height: "calc(100% - 48px - 13px - 1px - 64px )",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    containerCase: {
+        width: '100%',
+        height: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+
+    },
+    case1: {
+        width: "calc(100% - 344px)",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        height: '100%',
+        justifyContent: "center"
+    },
+    case2: {
+        width: 344,
+        boxSizing: 'border-box',
+        paddingLeft: 24,
+        display: 'flex',
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100%"
+    },
+    videoComponent: {
+        width: "100%",
+        position: 'relative',
+        overflow: 'hidden',
+        borderRadius: 10
+    }, videoM: {
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        top: 0,
+        right: 0,
+        left: 0,
+        transform: "scaleX(-1)"
+    }
 })

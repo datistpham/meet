@@ -6,7 +6,7 @@ const ContainerD1= (props: any)=> {
     const classes= useStyles()
     return (
         
-        <div className={classes.containerd1}>
+        <div className={`${props.a1=== true ? `${classes.containerd1active} _8200` : `_8500`} ${classes.containerd1}`}>
             <D11 icon={props.icon} />
             <D12 title={props.title} />
         </div>

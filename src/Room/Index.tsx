@@ -18,6 +18,8 @@ interface Context {
     borderColor: string,
     backgroundColor2: string,
     borderColor2: string,
+    audioName?:string,
+    webcamName?:string
 }
 const initialContext: Context= {
     peers: null,
@@ -30,7 +32,9 @@ const initialContext: Context= {
     backgroundColor: "none",
     borderColor: "#fff",
     backgroundColor2: "none",
-    borderColor2: "#fff"
+    borderColor2: "#fff", 
+    audioName: "",
+    webcamName: ""
 }
 const ContextRoom= createContext(initialContext)
 const StyledVideo = styled.video`
@@ -159,8 +163,18 @@ const ContextProVider= React.memo(() => {
     return (
         <ContextRoom.Provider 
             value={{
-                peers: peers, userVideo: userVideo,turnOffCamera: turnOffCamera , turnOnCamera: turnOnCamera, turnOnMicro, turnOffMicro, zIndex: devices.zIndex, backgroundColor: devices.backgroundColor, borderColor: devices.borderColor,
-                backgroundColor2: devices.backgroundColor2, borderColor2: devices.borderColor2
+                peers: peers, 
+                userVideo: userVideo,
+                turnOffCamera: turnOffCamera, 
+                turnOnCamera: turnOnCamera, 
+                turnOnMicro, turnOffMicro, 
+                zIndex: devices.zIndex, 
+                backgroundColor: devices.backgroundColor, 
+                borderColor: devices.borderColor,
+                backgroundColor2: devices.backgroundColor2, 
+                borderColor2: devices.borderColor2,
+                audioName: devices.audioName,
+                webcamName: devices.webcamName
             }}
         >
             <ContainerP />

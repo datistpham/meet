@@ -6,11 +6,10 @@ const app = express()
 app.use(cors())
 const server = http.createServer(app)
 const io = new Server(server)
-let users= ""
+let users: any= ""
 app.get("/t", (req, res)=> {
     console.log(req.query.a)
     users = req.query.a
-    
     return res.send("hihihi")
     
 })

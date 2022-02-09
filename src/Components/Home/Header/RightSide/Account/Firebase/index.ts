@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
+import { FirebaseConfig } from "../../../../../../docs/type/firebase_config"
 
-const firebaseConfig = {
+
+const firebaseConfig: FirebaseConfig = {
   apiKey: "AIzaSyCWLnFbRFdhXbdzVVVVdAS-YVvHefPjY08",
   authDomain: "meet-df496.firebaseapp.com",
   projectId: "meet-df496",
@@ -12,6 +14,6 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-export { app }
 const analytics = getAnalytics(app)
+export { app, analytics }
 

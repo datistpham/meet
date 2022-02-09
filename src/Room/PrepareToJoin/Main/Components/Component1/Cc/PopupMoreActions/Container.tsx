@@ -6,15 +6,15 @@ import Case from "./S1/Case"
 import { useStyles } from "./Styles/style"
 import { createContext } from "react"
 import { useMemo } from "react"
-interface Context {
-    userVideo: any,
-}
+import { Context } from "../../../../../../../docs/type/context_popup"
+
 const initialContext: Context= {
-    userVideo: "",    
+    userVideo: "",
+    camera: "",
+    micro: ""    
 }
 export const ContextPopup= createContext(initialContext)
 const Container= (props: any)=> {
-    
     const classes= useStyles()
     const userVideo= useRef<any>()
     const constraints = useMemo(()=> ({
@@ -45,7 +45,7 @@ const Container= (props: any)=> {
                     <div className={classes.container3}>
                         <ClosePopup close={props.close} />
                         <D state1={props.state1} state2={props.state2} state3={props.state3} openState1={props.openState1} openState2={props.openState2} openState3={props.openState3} />
-                        <Case />
+                        <Case state1={props.state1} state2={props.state2} state3={props.state3} openState1={props.openState1} openState2={props.openState2} openState3={props.openState3} />
                     </div>
                 </div> 
             </div>

@@ -6,21 +6,8 @@ import { createContext } from "react"
 import Peer from 'simple-peer'
 import ContainerP from "./Container/Container"
 import { useMemo } from "react"
-interface Context {
-    peers?: any,
-    userVideo: any,
-    turnOffCamera?:any,
-    turnOnCamera?:any,
-    turnOnMicro?: any,
-    turnOffMicro?: any,
-    zIndex: number,
-    backgroundColor: string,
-    borderColor: string,
-    backgroundColor2: string,
-    borderColor2: string,
-    audioName?:string,
-    webcamName?:string
-}
+import { Context } from "../docs/type/context_app"
+
 const initialContext: Context= {
     peers: null,
     userVideo: null,
@@ -34,7 +21,10 @@ const initialContext: Context= {
     backgroundColor2: "none",
     borderColor2: "#fff", 
     audioName: "",
-    webcamName: ""
+    webcamName: "",
+    listaudioinput: [],
+    listaudiooutput: [],
+    listcamerainput: []
 }
 const ContextRoom= createContext(initialContext)
 const StyledVideo = styled.video`
@@ -60,7 +50,7 @@ const ContextProVider= () => {
     const peersRef= useRef<any>([])
     const { roomID }= useParams()    
     const [stream1, setStream]= useState<any>(()=> null)
-    const [ devices, setDevices ]= useState<{audioName: string, webcamName: string,zIndex: number, backgroundColor: string, borderColor: string, backgroundColor2: string, borderColor2: string}>(()=> ({audioName: "", webcamName: "", zIndex: 1, backgroundColor: "none", borderColor: "#fff", backgroundColor2: "none", borderColor2: "#fff"}))
+    const [ devices, setDevices ]= useState<{audioName: string, webcamName: string,zIndex: number, backgroundColor: string, borderColor: string, backgroundColor2: string, borderColor2: string, a1: Array<any>, a2: Array<any>, a3: Array<any>}>(()=> ({audioName: "", webcamName: "", zIndex: 1, backgroundColor: "none", borderColor: "#fff", backgroundColor2: "none", borderColor2: "#fff", a1: [], a2: [], a3: []}))
     const videoConstraints = useMemo(()=> ({video: true, audio: { echoCancellation: true } }), [])
     const constraints = useMemo(()=> ({
         width: {min: 640, ideal: 1280},
@@ -71,10 +61,22 @@ const ContextProVider= () => {
         ]
       }), [])
     useEffect(()=> {
+        const getDevices= async ()=> {
+            try {
+                const devices= await navigator.mediaDevices.enumerateDevices()
+                setDevices((prev: any)=> ({...prev, a1: devices.filter(item=> item.kind=== "audioinput"), a2: devices.filter(item=> item.kind=== "audiooutput"), a3: devices.filter(item=> item.kind=== "videoinput")}))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getDevices()
+    },[])
+    useEffect(()=> {
         socketRef.current= io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
         const getUserMedia= async ()=> {
             try {
                 const stream= await navigator.mediaDevices.getUserMedia(videoConstraints)
+                
                 stream.getVideoTracks()[0].applyConstraints(constraints)
                 setDevices((prev: any)=> ({...prev,audioName: stream.getTracks()[0].label ,webcamName: stream.getTracks()[1].label}))
                 setStream(stream)
@@ -110,15 +112,7 @@ const ContextProVider= () => {
             }
         }
         getUserMedia()
-        // const getDevices= async ()=> {
-        //     try {
-        //         const devices= await navigator.mediaDevices.enumerateDevices()
-        //         setDevices((prev: any)=> ({...prev, a1: devices}))
-        //     } catch (error) {
-        //         console.log(error)
-        //     }
-        // }
-        // getDevices()
+        
     },[roomID, videoConstraints, constraints])
     function createPeer(userToSignal: any, callerID: any, stream: any) {
         const peer = new Peer({
@@ -175,6 +169,9 @@ const ContextProVider= () => {
                 borderColor2: devices.borderColor2,
                 audioName: devices.audioName,
                 webcamName: devices.webcamName,
+                listaudioinput: devices.a1,
+                listaudiooutput: devices.a2,
+                listcamerainput: devices.a3,
             }}
         >
             <ContainerP />

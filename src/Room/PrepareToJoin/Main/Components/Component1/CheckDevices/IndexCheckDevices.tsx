@@ -4,7 +4,7 @@ const IndexCheckDevices= (props: any)=> {
     const classes= useStyles()
     return (
         <div className={classes.IndexCheckDevices} >
-            <Cp actionF={props.actionF} />
+            <Cp actionF={props.actionF} actionF2={props.actionF2} />
         </div>
     )
 }

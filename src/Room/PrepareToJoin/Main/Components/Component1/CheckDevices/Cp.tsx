@@ -5,7 +5,7 @@ import Cp2 from "./Cp2"
 const Cp=(props: any)=> {
     const classes= useStyles()
     return (
-        <div role="button" onClick={()=> props.actionF()} className={classes.cp} style={{cursor: "pointer"}}>
+        <div role="button" onClick={()=> {props.actionF();props.actionF2()}} className={classes.cp} style={{cursor: "pointer"}}>
             <Cp1 />
             <Cp2 />
         </div>

@@ -62,7 +62,6 @@ export const useStyles= makeStyles({
     IndexCheckDevices: {
         width: '100%',
         height: 48,
-
     },
     cp: {
         height: 32,
@@ -73,7 +72,10 @@ export const useStyles= makeStyles({
         flexDirection: 'row',
         alignItems: 'center',
         padding: "0 10px",
-        width: 'max-content'
+        width: 'max-content',
+        "&:hover:active": {
+            backgroundColor: "#f2f0f5"
+        }
     },
     cp1: {
         display: 'flex',

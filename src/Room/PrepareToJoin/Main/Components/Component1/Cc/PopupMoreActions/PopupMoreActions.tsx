@@ -1,16 +1,6 @@
 import DiaLog from "@mui/material/Dialog"
+import { PopupMoreActionsType } from "../../../../../../../docs/type/popup"
 import Container from "./Container"
-
-export interface PopupMoreActionsType {
-    open: boolean,
-    onClose: ()=> void,
-    state1: boolean, 
-    state2: boolean,
-    state3: boolean,
-    openState1: any,
-    openState2: any, 
-    openState3: any,
-}
 
 const PopupMoreActions= (props: PopupMoreActionsType)=> {
     const { open, onClose, state1, state2, state3, openState1, openState2, openState3 }= props

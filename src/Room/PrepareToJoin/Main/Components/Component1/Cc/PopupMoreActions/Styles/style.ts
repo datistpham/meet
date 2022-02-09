@@ -169,6 +169,21 @@ export const useStyles= makeStyles({
         top: 0,
         right: 0,
         left: 0,
-        transform: "scaleX(-1)"
+        transform: "scaleX(-1)",
+        objectFit: 'cover'
+    },
+    case2c1: {
+        width: "100%",
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    case2c2: {
+
+    },
+    case2c3: {
+        
     }
 })

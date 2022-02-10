@@ -27,12 +27,12 @@ const CcVideoS2= (props: any)=> {
 const ContainerCS= (props: any)=> {
     const [turn, setTurn]= useState<boolean>(() => false)
     const [turn2, setTurn2]= useState<boolean>(()=> false)
-    const { turnOffCamera, turnOnCamera, turnOffMicro, turnOnMicro, backgroundColor, borderColor, backgroundColor2, borderColor2 }= useContext(ContextRoom)
+    const { turnOffCamera, turnOnCamera, turnOffMicro, turnOnMicro, backgroundColor, borderColor, backgroundColor2, borderColor2, toggleAudioParallel, toggleVideoParallel }= useContext(ContextRoom)
 
     return (
         <div className='_7000' style={{display: 'flex', flexDirection: 'row', alignItems: 'center', height: '100%', justifySelf: 'center'}}>
-            <ContainerC backgroundColor={backgroundColor2} borderColor={borderColor2} actionF2={()=> turnOn_Off(setTurn2)} actionF={turn2=== true ? turnOnMicro : turnOffMicro} icon={turn2=== true ?<MicOffIcon /> : <KeyboardVoiceOutlinedIcon />} className="_5000" title={turn2=== true ? "Turn on micro" : "Turn off micro"} />
-            <ContainerC backgroundColor={backgroundColor} borderColor={borderColor} actionF2={()=>turnOn_Off(setTurn)} actionF={turn=== true ? turnOnCamera : turnOffCamera} icon={turn=== true ? <VideocamOffIcon /> : <VideocamOutlinedIcon />} className="_5000" title={turn=== true ? "Turn on camera" : "Turn off camera"} />
+            <ContainerC backgroundColor={backgroundColor2} borderColor={borderColor2} actionF3={toggleAudioParallel} actionF2={()=> turnOn_Off(setTurn2)} actionF={turn2=== true ? turnOnMicro : turnOffMicro} icon={turn2=== true ?<MicOffIcon /> : <KeyboardVoiceOutlinedIcon />} className="_5000" title={turn2=== true ? "Turn on micro" : "Turn off micro"} />
+            <ContainerC backgroundColor={backgroundColor} borderColor={borderColor} actionF3={toggleVideoParallel} actionF2={()=>turnOn_Off(setTurn)} actionF={turn=== true ? turnOnCamera : turnOffCamera} icon={turn=== true ? <VideocamOffIcon /> : <VideocamOutlinedIcon />} className="_5000" title={turn=== true ? "Turn on camera" : "Turn off camera"} />
         </div>
         
     )

@@ -100,14 +100,16 @@ export const useStyles= makeStyles({
         height: 80,
         display: 'flex',
         justifyContent: "center", 
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: 'column'
     },
     containerC22: {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 200
+        flexDirection: "column",
+        margin: "16px 0 16px 0"
     },
     CcVideoS2C: {
         width: 55, 
@@ -121,6 +123,15 @@ export const useStyles= makeStyles({
 
         "&:hover": {
             backgroundColor: "#e5e5e57a",
+        }
+    },
+    bx2: {
+        padding: "0 24px", height: 48, borderRadius: 80, boxSizing: 'border-box', display: "inline-flex", justifyContent: 'center',alignItems: 'center', boxShadow: '0px 1px 2px 0px rgb(60 64 67 / 30%), 0px 1px 3px 1px rgb(60 64 67 / 15%)', margin: "0 4px 18px 4px", cursor: "pointer",backgroundColor: "#fff",
+        "&:hover:active": {
+            backgroundColor: "#5ca2ff"
+        },
+        "&:hover": {
+            backgroundColor: "#d1ecff"
         }
     }
 })

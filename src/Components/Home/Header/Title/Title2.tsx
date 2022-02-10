@@ -6,7 +6,7 @@ const Title2 = () => {
   const classes= useStyles()
   return (
     <div >
-        <a href='http://localhost:3000/' className={classes.title2} >Meet</a>
+        <a href='https://localhost:3000/' className={classes.title2} >Meet</a>
     </div>
   )
 }

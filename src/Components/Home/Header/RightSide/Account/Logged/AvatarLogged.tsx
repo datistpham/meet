@@ -13,7 +13,7 @@ const AvatarLogged = (props: any) => {
     else {
         return (
             <div className={classes.subLogged}>
-                <img draggable={false} src={props.photoUrl || "https://ak.picdn.net/shutterstock/videos/16761250/thumb/1.jpg?ip=x480"} alt="open" className={classes.loggedAvatar} />
+                <img referrerPolicy="no-referrer" draggable={false} src={props.photoUrl || "https://ak.picdn.net/shutterstock/videos/16761250/thumb/1.jpg?ip=x480"} alt="open" className={classes.loggedAvatar} />
             </div>
     
         ) 

@@ -1,17 +1,24 @@
-import { useRef } from "react"
-import { useEffect } from "react"
+import { useRef, useState, useEffect, createContext, useMemo } from "react"
 import ClosePopup from "./C/ClosePopup"
 import D from "./D/D"
 import Case from "./S1/Case"
 import { useStyles } from "./Styles/style"
-import { createContext } from "react"
-import { useMemo } from "react"
 import { Context } from "../../../../../../../docs/type/context_popup"
 
 const initialContext: Context= {
     userVideo: "",
     camera: "",
-    micro: ""    
+    micro: "",
+    turnoffCamera: null,
+    turnoffMicro: null,
+    turnonCamera: null,
+    turnonMicro: null
+}
+interface StateContainer {
+    stream1: any
+}
+const initialState: StateContainer= {
+    stream1: null
 }
 export const ContextPopup= createContext(initialContext)
 const Container= (props: any)=> {
@@ -25,10 +32,12 @@ const Container= (props: any)=> {
           {aspectRatio: 1.777}
         ]
       }), [])
+    const [state, setState]= useState<StateContainer>(()=> initialState)
     useEffect(()=> {
         const getUser= async ()=> {
             try {
                 const stream= await navigator.mediaDevices.getUserMedia({video: true, audio: true})
+                setState(prev=> ({...prev, stream1: stream}))
                 stream.getVideoTracks()[0].applyConstraints(constraints)
                 userVideo.current.srcObject= stream
             } catch (error) {
@@ -37,9 +46,31 @@ const Container= (props: any)=> {
         }
         getUser()
     },[constraints])
+    const turnoffCamera= (): void => {
+        state.stream1.getVideoTracks().forEach((track: any)=> track.enabled= false)
+    }
+    const turnonCamera= (): void=> {
+        state.stream1.getVideoTracks().forEach((track: any)=> track.enabled= true)
+    }
+    const turnoffMicro= (): void=> {
+        state.stream1.getAudioTracks().forEach((track: any)=> track.enabled= false)
+
+    }
+    const turnonMicro= (): void=>{ 
+        state.stream1.getAudioTracks().forEach((track: any)=> track.enabled= false)
+
+    }
 
     return (
-        <ContextPopup.Provider value={{userVideo: userVideo}}>
+        <ContextPopup.Provider 
+            value={{
+                userVideo: userVideo,
+                turnoffCamera: turnoffCamera,
+                turnoffMicro: turnoffMicro,
+                turnonCamera: turnonCamera,
+                turnonMicro: turnonMicro
+            }}
+        >
             <div className={classes.container}>
                 <div className={`_5600 ${classes.container2}`}>
                     <div className={classes.container3}>

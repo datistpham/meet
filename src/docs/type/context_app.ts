@@ -14,5 +14,13 @@ export interface Context {
     webcamName?:string,
     listaudioinput?: Array<any>,
     listaudiooutput?: Array<any>,
-    listcamerainput?: Array<any>
+    listcamerainput?: Array<any>,
+    audioDefaultId: any,
+    webcamDefaultId: any,
+    chooseAudio: (audio: any)=> any,
+    chooseCamera: (video: any)=> any,
+    audioParallel: boolean,
+    videoParallel: boolean,
+    toggleVideoParallel: any,
+    toggleAudioParallel: any
 }

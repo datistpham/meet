@@ -41,7 +41,15 @@ export const VideoC= ()=> {
         <CcVideoS3 userVideo={userVideo} />
     )
 }
-const TitleCameraOff= ()=> {
+export const TitleCameraOff= ()=> {
+    const { zIndex }= useContext(ContextRoom)
+    return (
+        <div style={{fontSize:24, color: "#fff", width: '100%', textAlign: 'center', position: 'absolute', top: '50%', transform: "translate(0%, -50%)", left: 0, zIndex: zIndex}}>
+            Camera is off
+        </div>
+    )
+}
+export const TitleMicroOff= ()=> {
     const { zIndex }= useContext(ContextRoom)
     return (
         <div style={{fontSize:24, color: "#fff", width: '100%', textAlign: 'center', position: 'absolute', top: '50%', transform: "translate(0%, -50%)", left: 0, zIndex: zIndex}}>

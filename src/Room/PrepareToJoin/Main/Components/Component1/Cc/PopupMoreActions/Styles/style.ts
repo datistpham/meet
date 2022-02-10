@@ -185,5 +185,47 @@ export const useStyles= makeStyles({
     },
     case2c3: {
         
+    },
+    co: {
+        transition: "all .15s ease-in-out",
+        width: '100%', 
+        height: 52,
+        margin: "8px 0", 
+        display: 'flex', 
+        flexDirection: 'row', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        backgroundColor: "#f1f3f4", 
+        borderTopLeftRadius: 5, 
+        borderTopRightRadius: 5, 
+        cursor: "pointer",
+        position: "relative",
+
+        // "&::after": {
+        //     width: "100%",
+        //     height: "100%",
+        //     content : "''",
+        //     position: "absolute",
+        //     top: 0,
+        //     left: 0,
+        //     right: 0,
+        //     backgroundColor: "#dcdedf",
+        //     transform: "scaleX(0)",
+        //     transition: "transform 150ms ease-in-out",
+        //     zIndex: -1
+
+        // },
+        "&:active:hover": {
+            backgroundColor: "#dcdedf",
+        },
+        "&:active": {
+            backgroundColor: "#dcdedf",
+        }
+    }
+    , cos41: {
+        transition: "all .1s ease-in-out",
+        "&:hover": {
+            backgroundColor: "#f2f0f5"
+        }
     }
 })

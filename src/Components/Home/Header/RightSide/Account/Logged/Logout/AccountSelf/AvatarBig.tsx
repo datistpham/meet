@@ -7,7 +7,7 @@ const AvatarBig = () => {
     const classes= useStyles()
     return (
         <div className={classes.containerAvatarBig}>
-            <img draggable={false} src={photoUrl!} alt="open" className={classes.avatarBig} />
+            <img referrerPolicy="no-referrer" draggable={false} src={photoUrl!} alt="open" className={classes.avatarBig} />
         </div>
   )
 }

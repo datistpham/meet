@@ -1,5 +1,3 @@
-import { v1 as uuid } from "uuid"
-import { useNavigate } from "react-router-dom"
 import { makeStyles } from "@mui/styles"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import HeaderComponent from "./Header/Header"
@@ -29,11 +27,6 @@ const theme= createTheme({
 
 const HomeRoot = (props: any) => {
     const classes= useStyles()
-    const navigate= useNavigate()
-    const create=() =>  {
-        const id = uuid()
-        navigate(`/room/${id}`)
-    }
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.rootHeader}>

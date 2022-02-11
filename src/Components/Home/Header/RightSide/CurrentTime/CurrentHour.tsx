@@ -1,5 +1,5 @@
 import date from 'date-and-time'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const CurrentDay = () => {
     const [time, setTime]= useState(()=> new Date())
@@ -19,4 +19,4 @@ const CurrentDay = () => {
     )
 }
 
-export default CurrentDay
+export default React.memo(CurrentDay)

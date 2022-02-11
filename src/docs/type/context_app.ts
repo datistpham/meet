@@ -22,5 +22,11 @@ export interface Context {
     audioParallel: boolean,
     videoParallel: boolean,
     toggleVideoParallel: any,
-    toggleAudioParallel: any
+    toggleAudioParallel: any,
+    joined: boolean,
+    setJoined: ()=> void
+}
+
+export interface Context2 {
+    
 }

@@ -1,12 +1,9 @@
 import { useEffect, useRef, useState, useMemo, createContext } from "react"
-import { io } from "socket.io-client"
 import styled from 'styled-components'
-import { useParams } from "react-router-dom"
-import Peer from 'simple-peer'
 import ContainerP from "./Container/Container"
-import { Context } from "../docs/type/context_app"
+import { Context, Context2 } from "../docs/type/context_app"
 
-const initialContext: Context= {
+const initialContext: Context & Context2= {
     peers: null,
     userVideo: null,
     turnOffCamera: null,
@@ -30,10 +27,11 @@ const initialContext: Context= {
     audioParallel: true,
     videoParallel: true,
     toggleVideoParallel: null,
-    toggleAudioParallel: null
+    toggleAudioParallel: null,
+    joined: false, setJoined: ()=> null
 }
 const ContextRoom= createContext(initialContext)
-const StyledVideo = styled.video`
+export const StyledVideo = styled.video`
     height: 40%;
     width: 50%;
     transform: scaleX(-1);
@@ -50,14 +48,10 @@ export const Video= (props: any)=> {
     )
 }
 const ContextProVider= () => {
-    const [peers, setPeers]= useState<any>([])
-    const socketRef= useRef<any>(null)
     const userVideo= useRef<any>(null)
-    const peersRef= useRef<any>([])
-    const { roomID }= useParams()    
     const [stream1, setStream]= useState<any>(()=> null)
     const [ devices, setDevices ]= useState<{audioName: string,audioDefaultId?: string | boolean, webcamDefaultId?: string | boolean, webcamName: string,zIndex: number, backgroundColor: string, borderColor: string, backgroundColor2: string, borderColor2: string, a1: Array<any>, a2: Array<any>, a3: Array<any>, videoParallel: boolean, audioParallel: boolean}>(()=> ({audioName: "", webcamName: "", zIndex: 1, backgroundColor: "none", borderColor: "#fff", backgroundColor2: "none", borderColor2: "#fff", a1: [], a2: [], a3: [], audioDefaultId: "", webcamDefaultId: "", videoParallel: true, audioParallel: true}))
-    
+    const [joined, setJoined]= useState<boolean>(()=> false)
     const videoConstraints: any = useMemo(()=> ({video: { deviceId: devices.webcamDefaultId }, audio: { echoCancellation: true, deviceId: devices.audioDefaultId } }), [devices.audioDefaultId,devices.webcamDefaultId])
     const constraints = useMemo(()=> ({
         width: {min: 640, ideal: 1280},
@@ -69,7 +63,7 @@ const ContextProVider= () => {
       }), [])
    
     useEffect(()=> {
-        socketRef.current= io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
+        // socketRef.current= io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
         const getUserMedia= async ()=> {
             try {
                 const stream= await navigator.mediaDevices.getUserMedia(videoConstraints)
@@ -77,31 +71,31 @@ const ContextProVider= () => {
                 setDevices((prev: any)=> ({...prev,audioName: stream.getTracks()[0].label, webcamName: stream.getTracks()[1].label}))
                 setStream(stream)
                 userVideo.current.srcObject= stream
-                socketRef!.current.emit("join room", roomID)
-                socketRef!.current.on("all users", (users: any)=> {
-                    const peers: any= []
-                    users.forEach((userID: any)=> {
-                        const peer= createPeer(userID, socketRef.current.id, stream)
-                        peersRef.current.push({
-                            peerID: userID,
-                            peer
-                        })
-                        peers.push(peer)
-                    })
-                    setPeers(peers)
-                })
-                socketRef.current.on("user joined", (payload: any)=> {
-                    const peer= addPeer(payload.signal, payload.callerID, stream)
-                    peersRef.current.push({
-                        peerID: payload.callerID,
-                        peer
-                    })
-                    setPeers((users: any)=> [...users, peer])
-                })
-                socketRef.current.on("receiving returned signal", (payload: any)=> {
-                    const item= peersRef.current.find((p: any)=> p.peerID=== payload.id)
-                    item.peer.signal(payload.signal)
-                })
+                // socketRef!.current.emit("join room", roomID)
+                // socketRef!.current.on("all users", (users: any)=> {
+                //     const peers: any= []
+                //     users.forEach((userID: any)=> {
+                //         const peer= createPeer(userID, socketRef.current.id, stream)
+                //         peersRef.current.push({
+                //             peerID: userID,
+                //             peer
+                //         })
+                //         peers.push(peer)
+                //     })
+                //     setPeers(peers)
+                // })
+                // socketRef.current.on("user joined", (payload: any)=> {
+                //     const peer= addPeer(payload.signal, payload.callerID, stream)
+                //     peersRef.current.push({
+                //         peerID: payload.callerID,
+                //         peer
+                //     })
+                //     setPeers((users: any)=> [...users, peer])
+                // })
+                // socketRef.current.on("receiving returned signal", (payload: any)=> {
+                //     const item= peersRef.current.find((p: any)=> p.peerID=== payload.id)
+                //     item.peer.signal(payload.signal)
+                // })
             }
             catch(e) {
                 console.log(e)
@@ -118,30 +112,8 @@ const ContextProVider= () => {
         }
         getDevices()
         
-    },[roomID, videoConstraints, constraints])
-    function createPeer(userToSignal: any, callerID: any, stream: any) {
-        const peer = new Peer({
-            initiator: true,
-            trickle: false,
-            stream,
-        });
-        peer.on("signal", signal => {
-            socketRef.current.emit("sending signal", { userToSignal, callerID, signal })
-        })
-        return peer;
-    }
-    function addPeer(incomingSignal: any, callerID: any, stream: any) {
-        const peer = new Peer({
-            initiator: false,
-            trickle: false,
-            stream,
-        })
-        peer.on("signal", signal => {
-            socketRef.current.emit("returning signal", { signal, callerID })
-        })
-        peer.signal(incomingSignal)
-        return peer
-    }
+    },[ videoConstraints, constraints])
+    
     
     const turnOffCamera= ()=> {
         setDevices((prev: any)=> ({...prev, zIndex: 2, backgroundColor: "#d93025",borderColor: "#d93025"}))
@@ -171,10 +143,12 @@ const ContextProVider= () => {
     const toggleAudioParallel= (video: any)=> {
         setDevices((prev: any)=> ({...prev, audioParallel: !devices.audioParallel}))
     }
+    const joinRoom= (): void => {
+        setJoined(()=> true)
+    }
     return (
         <ContextRoom.Provider 
             value={{
-                peers: peers, 
                 userVideo: userVideo,
                 turnOffCamera: turnOffCamera, 
                 turnOnCamera: turnOnCamera, 
@@ -196,7 +170,8 @@ const ContextProVider= () => {
                 videoParallel: devices.videoParallel,
                 audioParallel: devices.audioParallel,
                 toggleVideoParallel: toggleVideoParallel,
-                toggleAudioParallel: toggleAudioParallel 
+                toggleAudioParallel: toggleAudioParallel,
+                joined: joined, setJoined: joinRoom
             }}
         >
             <ContainerP />

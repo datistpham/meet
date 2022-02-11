@@ -28,5 +28,6 @@ export interface Context {
 }
 
 export interface Context2 {
-    
+    socketRef: any,
+    listUserF: any
 }

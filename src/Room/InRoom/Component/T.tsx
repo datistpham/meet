@@ -9,7 +9,14 @@ import { useStyles } from "../Style/main_style"
 import M from "./Main/M"
 import FooterIndex from "./Footer/Index"
 import tingting from "../../../Assert/sound_just_join_room.mp3"
+import { createContext } from "react"
+import { ContextTType } from "../../../docs/type/contextTtype"
 
+const initialContext: ContextTType= {
+    peers: null,
+    myRef: null
+}
+export const ContextT= createContext(initialContext)
 const Tingting= ()=> {
     return (
         <audio autoPlay>
@@ -21,6 +28,7 @@ const T= ()=> {
     const classes= useStyles()
     const peersRef= useRef<any>([])
     const myRef= useRef<any>(null)
+    const myRefJSX= useRef<any>(null)
     const socketRef= useRef<any>(null)
     const [peers, setPeers]= useState<any>([])
 
@@ -33,6 +41,7 @@ const T= ()=> {
                 
                 myRef.current.srcObject= stream
                 socketRef!.current.emit("join room", roomID)
+                
                 socketRef!.current.on("all users", (users: any)=> {
                     const peers: any= []
                     users.forEach((userID: any)=> {
@@ -86,14 +95,31 @@ const T= ()=> {
         peer.signal(incomingSignal)
         return peer
     }
+    const toggleFullScreen= ()=> {
+        if(myRefJSX.current.requestFullscreen) {
+            myRefJSX.current.requestFullscreen()
+        }
+        else if(myRefJSX.current.exitFullscreen) {
+            myRefJSX.current.exitFullscreen()
+        }
+    }
+    useEffect(()=> {
+        document.addEventListener("dblclick", toggleFullScreen)
+        return ()=> document.removeEventListener("dblclick", toggleFullScreen)
+    })
     return (
-        <InRoom>
-            <div className={`${classes.indexRoot} _3023`}>
-                <Tingting />
-                <M />
-                <FooterIndex />
-            </div>
-        </InRoom>
+        <ContextT.Provider value={{
+            peers: peers, 
+            myRef: myRef
+        }}>
+            <InRoom>
+                <div ref={myRefJSX} className={`${classes.indexRoot} _3023`}>
+                    <Tingting />
+                    <M />
+                    <FooterIndex />
+                </div>
+            </InRoom>
+        </ContextT.Provider>
     )
 }
 

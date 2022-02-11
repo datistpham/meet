@@ -18,7 +18,11 @@ export const useStyles= makeStyles({
     },
     mainIndex: {
         width: '100%',
-        height: 'calc(100% - 80px)'
+        height: 'calc(100% - 80px)',
+        position: "relative",
+        boxSizing: "border-box",
+        left: 0,
+        padding: 16
     },
     indexComponentF: {
         display: 'flex',

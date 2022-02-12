@@ -48,11 +48,11 @@ io.on('connection', socket => {
     })
     socket.on("counter-room-user-server", data=> {
         numberOfUserRooms[data.roomID]= data.numberOfuser
-        // console.log(numberOfUserRooms)
+        console.log(numberOfUserRooms)
     })
     socket.on("all-list-user-server", data=> {
         allListUser[data.roomID]= data.allListUserS
-        console.log(allListUser)
+        // console.log(allListUser)
     })
     socket.on("sending signal", payload => {
         io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID })
@@ -70,7 +70,9 @@ io.on('connection', socket => {
             users[roomID] = room
         }
     })
-
+    socket.on("user-joining-client", (data)=> {
+        socket.emit("user-joining-server", {allList: allListUser[data["roomID"]]})
+    })
 })
 
 server.listen(process.env.PORT || 8000, () => console.log('server is running on port 8000'))

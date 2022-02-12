@@ -1,12 +1,18 @@
-import React from "react"
+import React, {lazy, Suspense} from "react"
 import { useStyles } from "../../../../MakeStyles/MakeStyles"
-import ContainerC2 from "./Container/ContainerC2"
+const ContainerC2 = lazy(() => {
+    return new Promise((resolve: any) => {
+      setTimeout(() => resolve(import("./Container/ContainerC2")), 700);
+    });
+  });
 
 const Component2= ()=> {
     const classes= useStyles()
     return (
         <div className={classes.component2}>
-            <ContainerC2 />
+            <Suspense fallback={<div></div>}>
+                <ContainerC2 />
+            </Suspense>
         </div>
     )
 }

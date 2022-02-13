@@ -176,7 +176,7 @@ const ContextProVider= () => {
         })
     }
     const userList= ((list: any)=> {
-        return setState((prev: any)=> ({...prev, listUser: list}))
+        setState((prev: any)=> ({...prev, listUser: list}))
     })
     return (
         <ContextRoom.Provider 

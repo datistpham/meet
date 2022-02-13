@@ -71,7 +71,7 @@ io.on('connection', socket => {
     
     socket.on("user-disconnect", (data)=> {
         if(allListUser[data.roomID] !== undefined) {
-            const allListUserUpdate= allListUser[data.roomID].filter(item=> item.socketId != data.idSelf)
+            const allListUserUpdate= allListUser[data.roomID].filter(item=> item.socketId.toString() !== data.idSelf.toString())
             allListUser[data.roomID]= allListUserUpdate
         }
         // console.log(data.idSelf)

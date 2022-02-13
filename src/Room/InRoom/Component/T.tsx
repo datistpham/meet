@@ -1,4 +1,4 @@
-import { useRef, useState, lazy, Suspense } from "react"
+import { useRef, useState } from "react"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 // import { Video } from "../../Index"
@@ -12,11 +12,7 @@ import { createContext } from "react"
 import { ContextTType } from "../../../docs/type/contextTtype"
 // import { useContext } from "react"
 // import { ContextRoom } from "../../Index"
-const M = lazy(() => {
-    return new Promise((resolve: any): any => {
-      setTimeout(() => resolve(import("./Main/M")), 500);
-    })
-  })
+import M from "./Main/M"
 const initialContext: ContextTType= {
     peers: null,
     myRef: null
@@ -123,9 +119,7 @@ const T= ()=> {
             <InRoom>
                 <div ref={myRefJSX} className={`${classes.indexRoot} _3023`}>
                     <Tingting />
-                    <Suspense fallback={<div className={classes.mainIndex}></div>}>
                         <M />
-                    </Suspense>
                     <FooterIndex />
                 </div>
             </InRoom>

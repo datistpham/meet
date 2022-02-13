@@ -7,7 +7,6 @@ import { useStyles } from "../../Style/main_style"
 import { io } from "socket.io-client"
 import { useRef } from "react"
 import { useParams } from "react-router-dom"
-// import { ContextT } from "../T"
 
 const M= (props: any)=> {
     const classes= useStyles()
@@ -15,16 +14,17 @@ const M= (props: any)=> {
     const { roomID }= useParams()
     const socketRef= useRef<any>(null)
 
-    // const { peers, myRef }= useContext(ContextT)
     const cleanup = useCallback( ()=> {
         socketRef.current= io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
         socketRef.current.emit("user-disconnect", {idSelf, roomID})
     }, [socketRef, idSelf, roomID])
     useEffect(()=> {
-
+        window.onload= function() {
+            socketRef.current.emit("user-disconnect", {idSelf, roomID})
+        }
         window.addEventListener("beforeunload", cleanup)     
         return ()=> window.removeEventListener("beforeunload", cleanup)   
-    },[cleanup])
+    },[cleanup, idSelf, roomID])
     return (
         <div className={classes.mainIndex}>
             {/* {peers.map((peer: any, index: any) => {
@@ -32,7 +32,6 @@ const M= (props: any)=> {
                     <Video key={index} peer={peer} />
                 )
             })} */}
-            {/* <video ref={myRef} autoPlay muted playsInline style={{width: 400, height: 500}} /> */}
         </div>
     )
 }

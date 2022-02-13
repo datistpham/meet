@@ -6,6 +6,7 @@ import {
 import HomeRoot from "./Components/Home/Index"
 import { ContextProVider } from "./Room/Index";
 import './Styles/Styles.sass'
+import './Styles/Styles.css'
 import { app } from './Components/Home/Header/RightSide/Account/Firebase/index'
 
 function App() {

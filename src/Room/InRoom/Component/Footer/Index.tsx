@@ -6,7 +6,7 @@ import IndexT from "./C/T/Def/Index"
 const FooterIndex= (props: any)=> {
     const classes= useStyles()
     return (
-        <div className={`${classes.footerIndex} _3904`} >
+        <div className={`${classes.footerIndex} _3904 S3RDod`} >
             <IndexF />
             <IndexS />
             <IndexT />

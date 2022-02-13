@@ -21,7 +21,7 @@ const CcVideoVip= (props: any)=> {
         setMicroConnect(prev=> ({...prev, toggleVideo: !microConnect.toggleVideo}))
     }
     return (
-        <div className="_8100" style={{width: "100%",maxWidth: '100%',height: '100%', position: "absolute", top: 0, left: 0,right: 0, borderRadius: 10, overflow: 'hidden', backgroundColor: '#202124'}}>
+        <div className="_8100 S3RDod" style={{width: "100%",maxWidth: '100%',height: '100%', position: "absolute", top: 0, left: 0,right: 0, borderRadius: 10, overflow: 'hidden', backgroundColor: '#202124'}}>
             <CcVideoS1 />
             <Suspense fallback={<div style={{width: "100%", height: "100%",position: "absolute", top: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center',alignItems: "center", backgroundColor: "#000", zIndex: 4}}><div style={{fontSize: 24, color: "#fff", textAlign: "center", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>Camera is running</div></div>}>
                 <VideoC />

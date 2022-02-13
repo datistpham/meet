@@ -138,7 +138,7 @@ export const useStyles= makeStyles({
 const IndexMainSection = () => {
     const classes= useStyles()
     return (
-        <div className={classes.mainIndex}>
+        <div className={`S3RDod ${classes.mainIndex}`}>
             <Main />
         </div>
     )

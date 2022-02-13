@@ -6,8 +6,8 @@ import { io } from "socket.io-client"
 import { useContext } from "react"
 import { MyContext } from "../Components/Context/Context"
 import { useParams } from "react-router-dom"
-import { ListUserType } from "../docs/type/return-user"
-import { State2Type } from "../docs/type/state2-type"
+// import { ListUserType } from "../docs/type/return-user"
+// import { State2Type } from "../docs/type/state2-type"
 
 
 const initialContext: Context & Context2= {
@@ -37,7 +37,10 @@ const initialContext: Context & Context2= {
     toggleAudioParallel: null,
     joined: false, setJoined: ()=> null,
     socketRef: null,
-    listUserF: null
+    listUserF: null, 
+    cannotRunVideo: false,
+    idSelf: "",
+    userList: null
 }
 const ContextRoom= createContext(initialContext)
 export const StyledVideo = styled.video`
@@ -62,10 +65,8 @@ const ContextProVider= () => {
     const userVideo= useRef<any>(null)
     const socketRef= useRef<any>(null)
     const [stream1, setStream]= useState<any>(()=> null)
-    const [ devices, setDevices ]= useState<{audioName: string,audioDefaultId?: string | boolean, webcamDefaultId?: string | boolean, webcamName: string,zIndex: number, backgroundColor: string, borderColor: string, backgroundColor2: string, borderColor2: string, a1: Array<any>, a2: Array<any>, a3: Array<any>, videoParallel: boolean, audioParallel: boolean}>(()=> ({audioName: "", webcamName: "", zIndex: 1, backgroundColor: "none", borderColor: "#fff", backgroundColor2: "none", borderColor2: "#fff", a1: [], a2: [], a3: [], audioDefaultId: "", webcamDefaultId: "", videoParallel: true, audioParallel: true}))
-    const [state, setState]= useState<{joined: boolean, listUser: Array<object>, numberUsers: number}>(()=> ({joined: false, listUser: [], numberUsers: 0}))
-    const [allUser, setAllUsers]= useState<Array<object>>(()=> ([{}]))
-    const [numberOfUser, setNumberOfUser]= useState<number>(()=> 0)
+    const [ devices, setDevices ]= useState<{audioName: string,audioDefaultId?: string | boolean, webcamDefaultId?: string | boolean, webcamName: string,zIndex: number, backgroundColor: string, borderColor: string, backgroundColor2: string, borderColor2: string, a1: Array<any>, a2: Array<any>, a3: Array<any>, videoParallel: boolean, audioParallel: boolean, cannotRunVideo: boolean}>(()=> ({audioName: "", webcamName: "", zIndex: 1, backgroundColor: "none", borderColor: "#fff", backgroundColor2: "none", borderColor2: "#fff", a1: [], a2: [], a3: [], audioDefaultId: "", webcamDefaultId: "", videoParallel: true, audioParallel: true, cannotRunVideo: false}))
+    const [state, setState]= useState<{joined: boolean, listUser: Array<object>, numberUsers: number, idSelf: string}>(()=> ({joined: false, listUser: [], numberUsers: 0, idSelf: ""}))
     const videoConstraints: any = useMemo(()=> ({video: { deviceId: devices.webcamDefaultId }, audio: { echoCancellation: true, deviceId: devices.audioDefaultId } }), [devices.audioDefaultId,devices.webcamDefaultId])
     const constraints = useMemo(()=> ({
         width: {min: 640, ideal: 1280},
@@ -163,6 +164,10 @@ const ContextProVider= () => {
     }
     const listUserF= ()=> {
         socketRef.current.emit("user", {roomID, username, photoUrl})
+        socketRef.current.on("self", (data: any)=> {
+            // console.log(data)
+            setState((prev: any)=> ({...prev, idSelf: data.socketId}))
+        })
         socketRef.current.on("all-list-user", (data: any)=> {
             socketRef.current.emit("all-list-user-server", {roomID: roomID, allListUserS: data["allListUser"] })
         })  
@@ -170,6 +175,9 @@ const ContextProVider= () => {
             socketRef.current.emit("counter-room-user-server", {roomID: roomID, numberOfuser: data["countUser"]})
         })
     }
+    const userList= ((list: any)=> {
+        return setState((prev: any)=> ({...prev, listUser: list}))
+    })
     return (
         <ContextRoom.Provider 
             value={{
@@ -197,7 +205,9 @@ const ContextProVider= () => {
                 toggleAudioParallel: toggleAudioParallel,
                 joined: state.joined, setJoined: joinRoom,
                 socketRef: socketRef,
-                listUserF: listUserF
+                listUserF: listUserF,
+                cannotRunVideo: devices.cannotRunVideo,
+                idSelf: state.idSelf, userList: userList
             }}
         >
             <ContainerP />

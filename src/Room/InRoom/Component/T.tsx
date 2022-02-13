@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef, useState, lazy, Suspense } from "react"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 // import { Video } from "../../Index"
@@ -6,12 +6,17 @@ import { io } from "socket.io-client"
 import {  InRoom } from "../Index"
 import Peer from 'simple-peer'
 import { useStyles } from "../Style/main_style"
-import M from "./Main/M"
 import FooterIndex from "./Footer/Index"
 import tingting from "../../../Assert/sound_just_join_room.mp3"
 import { createContext } from "react"
 import { ContextTType } from "../../../docs/type/contextTtype"
-
+// import { useContext } from "react"
+// import { ContextRoom } from "../../Index"
+const M = lazy(() => {
+    return new Promise((resolve: any): any => {
+      setTimeout(() => resolve(import("./Main/M")), 500);
+    })
+  })
 const initialContext: ContextTType= {
     peers: null,
     myRef: null
@@ -31,6 +36,7 @@ const T= ()=> {
     const myRefJSX= useRef<any>(null)
     const socketRef= useRef<any>(null)
     const [peers, setPeers]= useState<any>([])
+    // const { idSelf }= useContext(ContextRoom)
 
     const { roomID }= useParams()
     useEffect(()=> {
@@ -107,15 +113,19 @@ const T= ()=> {
         document.addEventListener("dblclick", toggleFullScreen)
         return ()=> document.removeEventListener("dblclick", toggleFullScreen)
     })
+    
     return (
         <ContextT.Provider value={{
             peers: peers, 
-            myRef: myRef
+            myRef: myRef,
+            
         }}>
             <InRoom>
                 <div ref={myRefJSX} className={`${classes.indexRoot} _3023`}>
                     <Tingting />
-                    <M />
+                    <Suspense fallback={<div className={classes.mainIndex}></div>}>
+                        <M />
+                    </Suspense>
                     <FooterIndex />
                 </div>
             </InRoom>

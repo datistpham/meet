@@ -10,6 +10,7 @@ html
     body
         position: relative
         height: 100%
+        overflow: hidden
         #_382jfewasa
             height: 100%
 ._2324
@@ -42,6 +43,7 @@ html
 ._u4w8ew
     ._4000
         border: none !important
+
 @media screen and (max-width: 960px)
     ._2700
         width: 100% !important
@@ -87,3 +89,23 @@ html
         ._5600
             width: calc( 100% - #{$i}rem )
          
+.S3RDod
+    opacity: 0
+    animation: .5s ease-in fadeIn 0s forwards
+@keyframes fadeIn
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+.shTJQe 
+    animation-duration: 250ms
+    animation-name: showContent
+    animation-timing-function: cubic-bezier(0.0,0.0,0.2,1)
+@keyframes showContent
+    0%
+        opacity: 0
+        transform: translateY(200px)
+    100%
+        opacity: 1
+        transform: translateY(0)
+        

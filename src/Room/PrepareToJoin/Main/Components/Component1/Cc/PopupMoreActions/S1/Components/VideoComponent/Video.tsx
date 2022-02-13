@@ -11,7 +11,7 @@ const Video= (props: any)=> {
     const { openBrightness }= useContext(ContainerPContext)
     const { videoParallel }= useContext(ContextRoom)
     return (
-        <video style={{display: `${videoParallel=== true ? "block" : "none"}`,filter: `brightness(${openBrightness=== true ? "2": "1"})`, position: 'absolute',top: 0, zIndex: 3}} ref={userVideo} className={classes.videoM} autoPlay muted playsInline />
+        <video style={{display: `${videoParallel=== true ? "block" : "none"}`,filter: `brightness(${openBrightness=== true ? "2": "1"})`, position: 'absolute',top: 0, zIndex: 3}} ref={userVideo} className={`S3RDod ${classes.videoM}`} autoPlay muted playsInline />
     )
 }
 

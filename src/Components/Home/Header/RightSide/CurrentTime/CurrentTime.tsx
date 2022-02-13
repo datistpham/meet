@@ -16,7 +16,7 @@ const useStyles= makeStyles({
 const CurrentTime = () => {
     const classes= useStyles()
     return (
-        <div className={classes.currentTime}>
+        <div className={`S3RDod ${classes.currentTime}`}>
             <CurrentDay />
             <Separate />
             <CurrentHour />

@@ -4,9 +4,11 @@ import D from "../D/D";
 import { useState } from "react";
 import E from "./E"
 import { makeStyles } from "@mui/styles"
+import { useTranslation } from "react-i18next"
 
 
 const ButtonJoinMeetingRoom = () => {
+    const { t }= useTranslation()
     const classes= useStyles()
     const [state, setState]= useState<{borderColor: string, joinRoom: boolean, backgroundColor: string, checkValue: boolean, color: string}>({borderColor:"", joinRoom: false, backgroundColor: "", checkValue: false, color: ""})
     const checkValue= ():void => {
@@ -43,15 +45,22 @@ const ButtonJoinMeetingRoom = () => {
             setState((prev)=> ({...prev, borderColor: "", joinRoom: false}))
         }
     }
+    const [code, setCode]= useState<string>(()=> "")
+    const setValue= (e: any)=> {
+        setCode(()=> e.target.value)
+    }
+    const refreshValue= ()=> {
+        setCode(()=> "")
+    }
     return (
         <div style={{position: 'relative'}} onFocus={()=> focusBorderColor()} onBlur={()=> blurBorderColor()}>
             <div className={classes.buttonJoinMeetingRoom} style={{borderColor: state.borderColor}} >
-                <D icon={<KeyboardIcon />} title="Enter a code or a link" style={{color: "#5f6368"}} checkValue={checkValue} checkValueEmpty={checkValueEmpty} />
+                <D code={code} setValue={setValue} icon={<KeyboardIcon />} title={`${t("button.button2")}`} style={{color: "#5f6368"}} checkValue={checkValue} checkValueEmpty={checkValueEmpty} />
             </div>
             {
                 state.joinRoom=== true && 
                 <div className={classes2.buttonJoinRoom} >
-                    <E disable={state.checkValue} color={state.color} title="Join room" />
+                    <E refreshValue={refreshValue} code={code} disable={!state.checkValue} color={state.color} title={t("alert.title4")} />
                 </div>
             }
         </div>

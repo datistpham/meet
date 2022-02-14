@@ -1,5 +1,6 @@
 import { makeStyles } from '@mui/styles'
 import Main from './Main/Main'
+import ContainerCarousel from './Main/z-Carousel/ContainerCarousel'
 
 export const useStyles= makeStyles({
     mainIndex: {
@@ -92,6 +93,9 @@ export const useStyles= makeStyles({
         backgroundColor: "inherit",
         cursor: 'pointer',
         fontWeight: 600,
+        width: '100%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     },
     e: {
         fontSize: 16,
@@ -132,14 +136,16 @@ export const useStyles= makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        fontWeight: 600
+        fontWeight: 600,
+        whiteSpace: 'nowrap'
     }
 })
 const IndexMainSection = () => {
     const classes= useStyles()
     return (
-        <div className={`S3RDod ${classes.mainIndex}`}>
+        <div className={`_wa0eujds S3RDod ${classes.mainIndex}`}>
             <Main />
+            <ContainerCarousel />
         </div>
     )
 }

@@ -14,7 +14,9 @@ const useStyles= makeStyles({
     display: 'flex', 
     flexDirection: 'row',
     justifyContent: 'space-between',
-    userSelect: 'none'
+    userSelect: 'none',
+    position: 'relative',
+    zIndex: 999
   }
 })
 const HeaderComponent = (props: any) => {

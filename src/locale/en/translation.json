@@ -1,7 +1,25 @@
 {
     "content": {
-        "functional": "Functional",
+        "functional": "Function",
         "class": "Class",
-        "text": "This is"
+        "text": "This is text",
+        "lang1": "Vietnamese",
+        "lang2": "English"
+    }, 
+    "header": {
+        "title1": "Quality video call conversation. Now free for everyone.",
+        "title2": "We've redesigned Meet — our highly secure business meeting service — to make it available to everyone at no cost."
+    },
+    "button": {
+        "button1": "New room",
+        "button2": "Enter a code or a link",
+        "button3": "Create a meeting for use later",
+        "button4": "Start a meeting right now"
+    },
+    "alert": {
+        "title": "Copied this meeting room link",
+        "title2": "This is link to your meeting room",
+        "title3": "Let copy this link to send who you want to meeting together. You remember save this link to use later.",
+        "title4": "Join room"
     }
 }

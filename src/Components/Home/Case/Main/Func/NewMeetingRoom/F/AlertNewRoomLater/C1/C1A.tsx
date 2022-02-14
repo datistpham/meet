@@ -1,10 +1,12 @@
 import { useStyles } from "../AlertNewRoomLater"
+import { useTranslation } from "react-i18next"
 
 const C1A = (props: any) => {
     const classes= useStyles()
+    const { t }= useTranslation()
     return (
         <div className={classes.c1_}>
-            This is link to your meeting room
+            {t("alert.title2")}
         </div>
     )
 }

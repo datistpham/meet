@@ -49,9 +49,7 @@ export const useStyles= makeStyles({
         height: 32,
         borderRadius: '50%',
         transition: 'all .2s linear',
-        '&:active:hover': {
-            border: '4px solid rgba(0,0,0,0.2)'
-        }
+        
         
     }
 })

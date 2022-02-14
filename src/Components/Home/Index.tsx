@@ -29,7 +29,7 @@ const HomeRoot = (props: any) => {
     const classes= useStyles()
     return (
         <ThemeProvider theme={theme}>
-            <div className={classes.rootHeader}>
+            <div className={`_urjefdas3 ${classes.rootHeader}`}>
                 <HeaderComponent />
                 <IndexMainSection />
             </div>

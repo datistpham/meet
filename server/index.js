@@ -7,6 +7,7 @@ app.use(cors())
 const server = http.createServer(app)
 const io = new Server(server)
 
+let listRoom= []
 const socketToRoom = {}
 const users = {}
 const usersInfo= {}
@@ -76,6 +77,14 @@ io.on('connection', socket => {
         }
         // console.log(data.idSelf)
         // console.log(allListUser[data.roomID])
+    })
+    socket.on("check exist room", (data)=> {
+        if(listRoom.includes(data.room)=== true) {
+            socket.emit("check exist from server", {exist: true})
+        }
+        else {
+            socket.emit("check exist from server", { exist: false})
+        }
     })
     socket.on('disconnect', () => {
         const roomID = socketToRoom[socket.id]

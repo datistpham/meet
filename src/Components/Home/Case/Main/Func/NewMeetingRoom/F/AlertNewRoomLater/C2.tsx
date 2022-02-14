@@ -1,10 +1,12 @@
 import { useStyles } from "./AlertNewRoomLater"
+import { useTranslation } from "react-i18next"
 
 const C2 = (props: any) => {
     const classes= useStyles()
+    const { t }= useTranslation() 
     return (
         <div className={classes.c2}>
-            Let copy this link to send who you want to meeting together. You remember save this link to use later.
+            {t("alert.title3")}
         </div>
     )
 }

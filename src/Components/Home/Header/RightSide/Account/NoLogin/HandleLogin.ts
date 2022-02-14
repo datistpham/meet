@@ -33,3 +33,7 @@ export const LogoutExecute= ()=> {
   const auth= getAuth()
   auth.signOut()
 }
+
+export const getListUserCp= ()=> {
+  
+}

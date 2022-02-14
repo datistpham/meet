@@ -4,10 +4,11 @@ import D2 from "./D2"
 
 const D =(props: any) => {
     const classes= useStyles()
+    
     return (
         <div className={classes.c} style={props.style}>
             <C1 icon={props.icon} />
-            <D2 checkValue={props.checkValue} checkValueEmpty={props.checkValueEmpty} title={props.title} />
+            <D2 code={props.code} setValue={props.setValue} checkValue={props.checkValue} checkValueEmpty={props.checkValueEmpty} title={props.title} />
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { io } from "socket.io-client"
 import { useContext } from "react"
 import { MyContext } from "../Components/Context/Context"
 import { useParams } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
 // import { ListUserType } from "../docs/type/return-user"
 // import { State2Type } from "../docs/type/state2-type"
 
@@ -81,9 +82,9 @@ const ContextProVider= () => {
         // socketRef.current= io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
         const getUserMedia= async ()=> {
             try {
-                socketRef.current= io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
+                socketRef.current=  io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
                 const stream= await navigator.mediaDevices.getUserMedia(videoConstraints)
-                stream.getVideoTracks()[0].applyConstraints(constraints)
+                await stream.getVideoTracks()[0].applyConstraints(constraints)
                 setDevices((prev: any)=> ({...prev,audioName: stream.getTracks()[0].label, webcamName: stream.getTracks()[1].label}))
                 setStream(stream)
                 userVideo.current.srcObject= stream
@@ -131,13 +132,13 @@ const ContextProVider= () => {
     },[ videoConstraints, constraints])
     
     
-    const turnOffCamera= ()=> {
+    const turnOffCamera= async ()=> {
         setDevices((prev: any)=> ({...prev, zIndex: 2, backgroundColor: "#d93025",borderColor: "#d93025"}))
-        stream1.getVideoTracks().forEach((track: any) => track.enabled = false)
+        await stream1.getVideoTracks().forEach((track: any) => track.enabled = false)
     }
     const turnOnCamera= async ()=> {
         setDevices((prev: any)=> ({...prev, zIndex: 0, backgroundColor: "transparent", borderColor: "#fff"}))
-        stream1.getVideoTracks().forEach((track: any) => track.enabled = true)
+        await stream1.getVideoTracks().forEach((track: any) => track.enabled = true)
     }
     const turnOffMicro= async ()=> {
         setDevices((prev: any)=> ({...prev, backgroundColor2: "#d93025", borderColor2: "#d93025"}))
@@ -210,6 +211,9 @@ const ContextProVider= () => {
                 idSelf: state.idSelf, userList: userList
             }}
         >
+            <Helmet>
+                <title>Meet - {roomID}</title>
+            </Helmet>
             <ContainerP />
             {/* <StyledVideo muted ref={userVideo} autoPlay playsInline />*/}
             {/* {peers.map((peer: any, index: any) => {

@@ -2,6 +2,24 @@
     "content": {
         "functional": "Hàm",
         "class": "Lớp",
-        "text": "Đây là văn bản"
+        "text": "Đây là văn bản",
+        "lang1": "Tiếng Việt",
+        "lang2": "Tiếng Anh"
+    }, 
+    "header": {
+        "title1": "Cuộc họp video chất lượng. Giờ đây miễn phí cho tất cả mọi người.",
+        "title2": "Chúng tôi đã thiết kế lại Google Meet — dịch vụ tổ chức cuộc họp kinh doanh với độ bảo mật cao — để cung cấp miễn phí cho mọi người."
+    },
+    "button": {
+        "button1": "Cuộc họp mới",
+        "button2": "Nhập một mã hoặc đường liên kết",
+        "button3": "Tạo một cuộc họp để sử dụng sau",
+        "button4": "Bắt đầu một cuộc họp tức thì"
+    },
+    "alert": {
+        "title": "Đã sao chép đường liên kết của cuộc họp",
+        "title2": "Đây là đường liên kết của cuộc họp",
+        "title3": "Hãy sao chép đường liên kết này rồi gửi tới những người mà bạn muốn họp cùng. Bạn nhớ lưu lại đường liên kết để có thể sử dụng sau.",
+        "title4": "Tham gia"
     }
 }

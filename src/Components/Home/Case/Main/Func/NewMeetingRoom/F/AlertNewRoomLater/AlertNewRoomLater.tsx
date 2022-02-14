@@ -5,6 +5,8 @@ import { useContext } from "react"
 import { CircularProgress } from "@mui/material"
 import { useState } from "react"
 import { Animate } from "react-simple-animate"
+import { useTranslation } from "react-i18next"
+
 
 export const useStyles= makeStyles({
     alertNewRoomLater: {
@@ -86,6 +88,8 @@ export const useStyles= makeStyles({
     }
 })
 const AlertNewRoomLater = (props: any) => {
+    const { t }= useTranslation()
+
     const classes= useStyles()
     const { newRoom }= useContext(MyContext)
     const [copied, setCopied]= useState<boolean>(()=> false)
@@ -112,7 +116,7 @@ const AlertNewRoomLater = (props: any) => {
                         play={copied}
                     >
                         <div style={{position: 'absolute', bottom: 0, left: 0, padding: '14px 24px',borderRadius: 6, backgroundColor: '#202124', color: "#fff", marginLeft: 10, marginBottom: 10}}>
-                            <div style={{color: "#fff", fontWeight: 600}}>Copied this meeting room link</div>
+                            <div style={{color: "#fff", fontWeight: 600}}>{t("alert.title")}</div>
                         </div>
                     </Animate>
                 }

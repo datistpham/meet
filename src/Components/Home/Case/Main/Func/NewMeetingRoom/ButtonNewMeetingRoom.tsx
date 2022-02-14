@@ -6,8 +6,11 @@ import { useRef } from "react"
 import { useEffect } from "react"
 import { useState } from "react"
 import { Animate } from "react-simple-animate"
+import { useTranslation } from "react-i18next"
 
 const ButtonNewMeetingRoom = () => {
+
+    const { t }= useTranslation()
     const classes= useStyles()
     const myRef= useRef<any>()
     const [openPopup, setOpenPopup]= useState<boolean>( ()=> false)
@@ -31,7 +34,7 @@ const ButtonNewMeetingRoom = () => {
     })
     return (
         <div onClick={()=> {handleClickInside();popUpTrue()}} ref={myRef} className={classes.buttonNewMeetingRoom}>
-            <C icon={<VideoCallIcon />} title="New room" style={{color: "#fff"}} />
+            <C icon={<VideoCallIcon />} title={`${t("button.button1")}`} style={{color: "#fff"}} />
             {
                 openPopup=== true &&
                 <Animate

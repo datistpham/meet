@@ -35,6 +35,7 @@ const CSection2= styled.div`
     font-size: 24px;
     color: #000000DE;
     font-weight: 600
+    
 `
 const CSection3= styled.div`
     width: 330px;
@@ -52,7 +53,7 @@ const CarouselIndex= ()=> {
     const items= useMemo(()=> ([
         {
             image: "https://www.gstatic.com/meet/user_edu_get_a_link_light_90698cd7b4ca04d3005c962a3756c42d.svg",
-            title1: "get a link you can share ",
+            title1: "Get a link you can share ",
             title2: "Click New room to get a link and send to people who you want meeting ",
         },
         {
@@ -79,6 +80,7 @@ const CarouselIndex= ()=> {
                 swipe={true}
                 stopAutoPlayOnHover={true}
                 animation="fade"
+                autoPlay={true}
             >
                 {
                     items.map((item: ItemType, key: number)=> <Merge key={nanoid()} image={item.image} title1={item.title1} title2={item.title2} />)

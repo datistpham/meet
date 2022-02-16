@@ -7,8 +7,14 @@ import { useStyles } from "../../Style/main_style"
 import { io } from "socket.io-client"
 import { useRef } from "react"
 import { useParams } from "react-router-dom"
+import VideoSpecialIndex from "./VideoSpecial/Index"
+import Indentify from "./Indentify/Index"
+import Pseudo from "./Indentify/Pseudo"
+import { useStore } from "../../../../zustand/store"
+import VideoShare from "../Footer/C/S/C/Functionality/ShareScreen/VideoShare"
 
 const M= (props: any)=> {
+    const sharing= useStore(state=> state.sharingScreen)
     const classes= useStyles()
     const { idSelf }= useContext(ContextRoom)
     const { roomID }= useParams()
@@ -26,12 +32,20 @@ const M= (props: any)=> {
         return ()=> window.removeEventListener("beforeunload", cleanup)   
     },[cleanup, idSelf, roomID])
     return (
-        <div className={classes.mainIndex}>
+        <div className={`_w0eiwsdt2 ${classes.mainIndex}`}>
             {/* {peers.map((peer: any, index: any) => {
                 return (
                     <Video key={index} peer={peer} />
                 )
             })} */}
+            <Pseudo />
+            {
+                sharing=== true &&
+                <VideoShare myRef={props.refSharing} />  
+
+            }
+            <VideoSpecialIndex sharing={sharing} />
+            <Indentify />
         </div>
     )
 }

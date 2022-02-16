@@ -5,7 +5,7 @@ const IndexS= (props: any)=> {
     const classes= useStyles()
     return (
         <div className={classes.indexComponentF}>
-            <IndexCoreB />
+            <IndexCoreB isSharing={props.isSharing} />
         </div>
     )
 }

@@ -26,10 +26,12 @@ const MyContext= createContext<Context>(initialContext)
 const ContextApp= ({children}: Props): JSX.Element => {
     const auth= getAuth()   
     const [user, setUser]= useState<Context | null>({email: "", photoUrl: null, username: null ,newRoom: ""})
+    const newPieceOfUrl= "s200-c"
+    const originalPieceOfUrl= "s96-c"
     useEffect(()=> {
         auth.onAuthStateChanged(res=> {
             if(res !== null) {
-                setUser(prev=> ({...prev, email: res.email, photoUrl: res.photoURL, username: res.displayName}))
+                setUser(prev=> ({...prev, email: res.email, photoUrl: res.photoURL?.replace(originalPieceOfUrl, newPieceOfUrl), username: res.displayName}))
             }
         })
     },[auth])

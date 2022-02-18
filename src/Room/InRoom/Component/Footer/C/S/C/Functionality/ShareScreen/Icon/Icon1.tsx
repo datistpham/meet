@@ -15,5 +15,9 @@ const Icon3= ()=> {
         <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" className="Hdh4hc cIGbvc NMm5M" style={{fill: "#5f6368"}}><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h10v4h8v10z"></path></svg>
     )
 }
-
-export { Icon1, Icon2, Icon3 }
+const Icon4= ()=> {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" className="Hdh4hc cIGbvc NMm5M" style={{fill: "#5f6368"}}><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"></path><path d="M9.41 16L12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8 12 10.59 9.41 8 8 9.41 10.59 12 8 14.59z"></path></svg>
+    )
+}
+export { Icon1, Icon2, Icon3, Icon4 }

@@ -5,8 +5,9 @@ import { Context, Context2 } from "../docs/type/context_app"
 import { io } from "socket.io-client"
 import { useContext } from "react"
 import { MyContext } from "../Components/Context/Context"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
+import { memo } from "react"
 // import { ListUserType } from "../docs/type/return-user"
 // import { State2Type } from "../docs/type/state2-type"
 
@@ -41,15 +42,20 @@ const initialContext: Context & Context2= {
     listUserF: null, 
     cannotRunVideo: false,
     idSelf: "",
-    userList: null
+    userList: null,
+    test: false,
+    current: null,
+    leave: false, leaveRoom: ()=> null,
+    joinRoomAgain: null,
+    bossRoom: "member"
 }
 const ContextRoom= createContext(initialContext)
 export const StyledVideo = styled.video`
-    height: 40%;
-    width: 50%;
+    width: 100%;
+    flex: 1 1 auto;
     transform: scaleX(-1);
 `
-export const Video= (props: any)=> {
+export const Video= memo((props: any)=> {
     const ref= useRef<any>(null)
     useEffect(()=> {
         props.peer.on("stream", (stream: any) => {
@@ -59,15 +65,17 @@ export const Video= (props: any)=> {
     return (
         <StyledVideo playsInline autoPlay ref={ref} />
     )
-}
+})
 const ContextProVider= () => {
+    const location: any= useLocation()
+    const bossRoom=  useMemo(()=> (location?.state?.bossRoom || "member"), [location]) 
     const { username, photoUrl }= useContext(MyContext)
     const { roomID }= useParams()
     const userVideo= useRef<any>(null)
     const socketRef= useRef<any>(null)
     const [stream1, setStream]= useState<any>(()=> null)
-    const [ devices, setDevices ]= useState<{audioName: string,audioDefaultId?: string | boolean, webcamDefaultId?: string | boolean, webcamName: string,zIndex: number, backgroundColor: string, borderColor: string, backgroundColor2: string, borderColor2: string, a1: Array<any>, a2: Array<any>, a3: Array<any>, videoParallel: boolean, audioParallel: boolean, cannotRunVideo: boolean}>(()=> ({audioName: "", webcamName: "", zIndex: 1, backgroundColor: "none", borderColor: "#fff", backgroundColor2: "none", borderColor2: "#fff", a1: [], a2: [], a3: [], audioDefaultId: "", webcamDefaultId: "", videoParallel: true, audioParallel: true, cannotRunVideo: false}))
-    const [state, setState]= useState<{joined: boolean, listUser: Array<object>, numberUsers: number, idSelf: string}>(()=> ({joined: false, listUser: [], numberUsers: 0, idSelf: ""}))
+    const [ devices, setDevices ]= useState<{audioName: string,audioDefaultId?: string | boolean, webcamDefaultId?: string | boolean, webcamName: string,zIndex: number, backgroundColor: string, borderColor: string, backgroundColor2: string, borderColor2: string, a1: Array<any>, a2: Array<any>, a3: Array<any>, videoParallel: boolean, audioParallel: boolean, cannotRunVideo: boolean, test: boolean}>(()=> ({audioName: "", webcamName: "", zIndex: 1, backgroundColor: "none", borderColor: "#fff", backgroundColor2: "none", borderColor2: "#fff", a1: [], a2: [], a3: [], audioDefaultId: "", webcamDefaultId: "", videoParallel: true, audioParallel: true, cannotRunVideo: false, test: false }))
+    const [state, setState]= useState<{joined: boolean, listUser: Array<object>, numberUsers: number, idSelf: string, leave: boolean}>(()=> ({joined: false, listUser: [], numberUsers: 0, idSelf: "", leave: false}))
     const videoConstraints: any = useMemo(()=> ({video: { deviceId: devices.webcamDefaultId }, audio: { echoCancellation: true, deviceId: devices.audioDefaultId } }), [devices.audioDefaultId,devices.webcamDefaultId])
     const constraints = useMemo(()=> ({
         width: {min: 640, ideal: 1280},
@@ -77,7 +85,6 @@ const ContextProVider= () => {
           {aspectRatio: 1.777}
         ]
       }), [])
-   
     useEffect(()=> {
         // socketRef.current= io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
         const getUserMedia= async ()=> {
@@ -85,7 +92,7 @@ const ContextProVider= () => {
                 socketRef.current=  io(`http://localhost:8000/`, { transports: ['websocket', 'polling'] })
                 const stream= await navigator.mediaDevices.getUserMedia(videoConstraints)
                 await stream.getVideoTracks()[0].applyConstraints(constraints)
-                setDevices((prev: any)=> ({...prev,audioName: stream.getTracks()[0].label, webcamName: stream.getTracks()[1].label}))
+                setDevices((prev: any)=> ({...prev,audioName: stream.getTracks()[0].label, webcamName: stream.getTracks()[1].label, test: true }))
                 setStream(stream)
                 userVideo.current.srcObject= stream
                 // socketRef!.current.emit("join room", roomID)
@@ -129,9 +136,18 @@ const ContextProVider= () => {
         }
         getDevices()
         
-    },[ videoConstraints, constraints])
+    },[ videoConstraints, constraints, roomID ])
     
-    
+
+    const leaveRoom = ()=> {
+        setState((prev: any)=> ({...prev, leave: true, joined: false}))
+        socketRef.current.emit("user-disconnect", { roomID })
+    }
+    const joinRoomAgain= ()=> {
+        window.location.replace(`https://localhost:3000/${roomID}`)
+    }
+
+    // 
     const turnOffCamera= async ()=> {
         setDevices((prev: any)=> ({...prev, zIndex: 2, backgroundColor: "#d93025",borderColor: "#d93025"}))
         await stream1.getVideoTracks().forEach((track: any) => track.enabled = false)
@@ -163,8 +179,11 @@ const ContextProVider= () => {
     const joinRoom= (): void => {
         setState((prev: any)=> ({...prev, joined: true}))
     }
+    
+    // 
+
     const listUserF= ()=> {
-        socketRef.current.emit("user", {roomID, username, photoUrl})
+        socketRef.current.emit("user", {roomID, username, photoUrl, bossRoom})
         socketRef.current.on("self", (data: any)=> {
             // console.log(data)
             setState((prev: any)=> ({...prev, idSelf: data.socketId}))
@@ -176,9 +195,14 @@ const ContextProVider= () => {
             socketRef.current.emit("counter-room-user-server", {roomID: roomID, numberOfuser: data["countUser"]})
         })
     }
+
+
+
     const userList= ((list: any)=> {
         setState((prev: any)=> ({...prev, listUser: list}))
     })
+
+
     return (
         <ContextRoom.Provider 
             value={{
@@ -208,7 +232,12 @@ const ContextProVider= () => {
                 socketRef: socketRef,
                 listUserF: listUserF,
                 cannotRunVideo: devices.cannotRunVideo,
-                idSelf: state.idSelf, userList: userList
+                idSelf: state.idSelf, userList: userList,
+                test: devices.test,
+                leave: state.leave,
+                leaveRoom: leaveRoom,
+                joinRoomAgain: joinRoomAgain,
+                bossRoom: bossRoom
             }}
         >
             <Helmet>

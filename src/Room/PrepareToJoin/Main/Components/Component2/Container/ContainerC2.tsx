@@ -11,9 +11,6 @@ const ContainerC2= (props: any)=> {
     const { socketRef, userList }= useContext(ContextRoom)
     const { roomID }= useParams()
     const [allUserA, setAllUserA]= useState<Array<any>>(()=> ([]) )
-    // const setListUser= ()=> {
-        
-    // }
     useEffect(()=> {
         socketRef.current.emit("user-joining-client", { roomID })
         socketRef.current.on("user-joining-server",(data: any)=> {

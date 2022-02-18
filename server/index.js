@@ -2,18 +2,20 @@ import express from "express"
 import http from 'http'
 import { Server } from "socket.io"
 import cors from 'cors'
+import _ from "lodash"
 const app = express()
 app.use(cors())
 const server = http.createServer(app)
 const io = new Server(server)
 
-let listRoom= []
+// let listRoom= []
 const socketToRoom = {}
 const users = {}
 const usersInfo= {}
 const numberOfUserRooms= {}
 const allListUser= {}
 io.on('connection', socket => {
+    // console.log(socket.id)
     socket.on("join room", roomID => {
         // console.log(users[roomID])
         if (users[roomID]) {
@@ -29,8 +31,18 @@ io.on('connection', socket => {
         socketToRoom[socket.id] = roomID
         const usersInThisRoom = users[roomID].filter(id => id !== socket.id)
         // console.log(usersInThisRoom)
+        socket.emit("number of users", usersInThisRoom.length)
         socket.emit("all users", usersInThisRoom)
     })
+    socket.on("get number users", (data)=> {
+        const usersInThisRoom= users[data.roomID]
+        // console.log(usersInThisRoom)
+        if(usersInThisRoom.length !== undefined) {
+            socket.emit("number user from server", { length: usersInThisRoom.length || 1})
+        }
+
+    })
+
     socket.on("user", data=> {
         if (usersInfo[data.roomID]) {
             const length = usersInfo[data.roomID].length
@@ -38,11 +50,11 @@ io.on('connection', socket => {
                 socket.emit("room full")
                 return
             }
-            usersInfo[data.roomID].push({socketId: socket.id, photoUrl: data.photoUrl, userName: data.username})
+            usersInfo[data.roomID].push({socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom})
         } else {
-            usersInfo[data.roomID] = [{socketId: socket.id, photoUrl: data.photoUrl, userName: data.username}]
+            usersInfo[data.roomID] = [{socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom}]
         }
-        io.to(socket.id).emit("self", {socketId: socket.id, photoUrl: data.photoUrl, userName: data.username})
+        io.to(socket.id).emit("self", {socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom})
         const userInThisRoomInfo= usersInfo[data.roomID]
         // console.log(userInThisRoomInfo)
         socket.emit("all-list-user", {allListUser: userInThisRoomInfo})
@@ -70,24 +82,33 @@ io.on('connection', socket => {
         socket.emit("user-joining-server", {allList: allListUser[`${uRoom}`]})
     })
     
-    socket.on("user-disconnect", (data)=> {
-        if(allListUser[data.roomID] !== undefined) {
-            const allListUserUpdate= allListUser[data.roomID].filter(item=> item.socketId.toString() != data.idSelf.toString())
-            allListUser[data.roomID]= allListUserUpdate
-        }
-        // console.log(data.idSelf)
-        // console.log(allListUser[data.roomID])
-    })
-    socket.on("check exist room", (data)=> {
-        if(listRoom.includes(data.room)=== true) {
-            socket.emit("check exist from server", {exist: true})
-        }
-        else {
-            socket.emit("check exist from server", { exist: false})
-        }
+    // socket.on("user-disconnect", (data)=> {
+    //     console.log(111)
+    //     console.log(allListUser)
+    //     if(allListUser[data.roomID] !== undefined) {
+    //         const allListUserUpdate= allListUser[data.roomID].filter(item=> item.socketId.toString() !== socket.id.toString())
+    //         allListUser[data.roomID]= allListUserUpdate
+    //     }
+    //     // console.log(data.idSelf)
+    //     // console.log(allListUser[data.roomID])
+    // })
+    // 
+    
+    // 
+    socket.on("list user from client", (data)=> {
+        socket.emit("list user from server", { list: allListUser[data.roomID] })
     })
     socket.on('disconnect', () => {
+        // console.log(socket.id)
+        // console.log(allListUser)
+
+        
+        // console.log(Object.values(allListUser))
         const roomID = socketToRoom[socket.id]
+        // console.log(roomID)
+        // allListUser[roomID]
+        _.remove(allListUser[roomID], obj=> obj.socketId.toString() === socket.id.toString())
+        // console.log(allListUser[roomID])
         let room = users[roomID]
         // console.log(socket.id)
         // Object.values(allListUser).map(item=> item.filter(item2=> console.log(item2.socketId)))
@@ -98,5 +119,7 @@ io.on('connection', socket => {
         }
     })
 })
+
+
 
 server.listen(process.env.PORT || 8000, () => console.log('server is running on port 8000'))

@@ -40,7 +40,7 @@ const C2= (props: any)=> {
                     {
                         props.allUserA.map((item: any, key: number)=> <Fragment key={nanoid()}><div className={`${classes.uchi} _wef-332i9`} style={{fontSize: 14, fontWeight: 600}}>{item.userName}</div><div className={`_${key+1}aq-32i9 _9remsew`} style={{fontSize: 14, fontWeight: 600}}>&nbsp;and&nbsp;</div></Fragment>)
                     }
-                    <P1 />
+                    <P12 />
                 </div>)
             }
             {
@@ -61,6 +61,11 @@ const C2= (props: any)=> {
 const P1= ()=> {
     return (
         <div className="_93ikw-94iwk" style={{fontSize: 14, fontWeight: 600, marginTop: 6}}>&nbsp;are joining this meeting room</div>
+    )
+}
+const P12= ()=> {
+    return (
+        <div className="_93ikw-94iwk" style={{fontSize: 14, fontWeight: 600,}}>&nbsp;are joining this meeting room</div>
     )
 }
 

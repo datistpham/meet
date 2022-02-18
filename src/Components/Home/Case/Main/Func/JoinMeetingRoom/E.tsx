@@ -10,20 +10,21 @@ const E= (props: any)=> {
     const socketRef= useRef<any>(null)
     const [conditionExist, setConditionExist]= useState<boolean | null>(null)
     useEffect(()=> {
-        socketRef.current= io("http://localhost:8000/", { transports: ["websocket", "polling"] })
+        socketRef.current= io("http://localhost:4000/", { transports: ["websocket", "polling"] })
     })
 
     const checkRoom = ()=> {
-        socketRef.current.emit("check exist room", {room: props.code})
-        socketRef.current.on("check exist from server", (data: any)=> {
+        socketRef.current.emit("check room", {roomID: props.code})
+        socketRef.current.on("check room done", (data: any)=> {
             if(data.exist=== false) {
                 setConditionExist(()=> false)
+                props.refreshValue()
             }
             else {
-                setConditionExist(()=> true )
+                window.location.replace(`https://localhost:3000/${props.code}`)
             }
         })
-        props.refreshValue()
+        
     }
     return (
         <div style={{position: 'relative'}}>

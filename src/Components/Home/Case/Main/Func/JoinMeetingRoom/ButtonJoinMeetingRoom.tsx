@@ -31,6 +31,7 @@ const ButtonJoinMeetingRoom = () => {
             marginLeft: 20,
             transition: "all 0.1s linear",
             position: 'absolute',
+            zIndex: 999,
             "&:hover": {
                 backgroundColor: state.backgroundColor
             }

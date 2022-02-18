@@ -5,7 +5,8 @@ export const useStyles= makeStyles({
         width: '100%',
         height: '100%',display: 'flex', justifyContent: 'center', alignItems: 'center',flexDirection: 'column',
         backgroundColor: "#202124",
-        color: "#fff"
+        color: "#fff",
+        position: 'relative'
     },
     footerIndex: {
         width: '100%',

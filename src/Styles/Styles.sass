@@ -110,11 +110,7 @@ html
     transition: all .15s linear
     &:hover
         background-color: #f2f0f5
-@keyframes fadeIn
-    0%
-        opacity: 0
-    100%
-        opacity: 1
+
 .shTJQe 
     animation-duration: 250ms
     animation-name: showContent
@@ -141,11 +137,10 @@ html
 ._urjefdas3 
     &::-webkit-scrollbar
         width: 9px
-        visibility: hidden
     &::-webkit-scrollbar-track
-        background-color: #fff
     &::-webkit-scrollbar-thumb
         border-radius: 80px !important
+        background-color: #dadce0
     // &::-webkit-scrollbar-thumb:hover
 ._w0eiwsdt2
     animation: fadeIn .075s step-end,fadeIn .225s ease .075s
@@ -166,7 +161,164 @@ html
     background-color: #fff  
 ._93i2we
     animation: spinner-container-rotate 1568ms linear infinite
-@keyframes spinner-container-rotate
+@keyframes spinner-container-zWfAib
     100%
         transform: rotate(360deg)
-        
+._9wie9dsqw
+    >label
+        >span
+            >svg
+                width: 48px !important
+                height: 48px !important
+.zWfAib
+    animation: fadeIn .075s step-end,fadeIn .225s ease .075s 
+    transition: top .5s cubic-bezier(0.4,0,0.2,1),left .5s cubic-bezier(0.4,0,0.2,1),right .5s cubic-bezier(0.4,0,0.2,1),bottom .5s cubic-bezier(0.4,0,0.2,1),width .5s cubic-bezier(0.4,0,0.2,1),height .5s cubic-bezier(0.4,0,0.2,1),background .5s cubic-bezier(0.4,0,0.2,1)
+//
+
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans')
+/*Variables*/
+$background_color: #353b48
+$font: "Fira Sans", sans-serif
+$white: #f5f6fa
+$black: #0C0E10
+$gray: #202425
+$blue: #446182
+//Mixins
+=smallscreens
+    @media (max-width: 770px)
+        @content
+//Extends
+%Ycenter
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
+//Main Layout Styles
+*
+    box-sizing: border-box
+
+
+.background
+    color: #fff
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: linear-gradient($black, $blue)
+    .ground
+        position: absolute
+        bottom: 0
+        width: 100%
+        height: 25vh
+        background: $black
+        +smallscreens
+            height: 0vh
+
+.container
+    position: relative
+    margin: 0 auto
+    width: 85%
+    height: 100vh
+    padding-bottom: 25vh
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    +smallscreens
+        flex-direction: column
+        padding-bottom: 0vh
+.left-section, .right-section
+    position: relative
+//Left Section Styles
+.left-section
+    width: 40%
+    +smallscreens
+        width: 100%
+        height: 40%
+        position: absolute
+        top: 0
+    .inner-content
+        @extend %Ycenter
+        +smallscreens
+            position: relative
+            padding: 1rem 0
+.heading
+    color: #fff 
+    text-align: center
+    font-size: 9em
+    line-height: 1.3em
+    margin: 2rem 0 0.5rem 0
+    padding: 0
+    text-shadow: 0 0 1rem #fefefe
+    +smallscreens
+        font-size: 7em
+        line-height: 1.15
+        margin: 0
+.subheading
+    color: #fff 
+    text-align: center 
+    max-width: 480px
+    font-size: 1.5em
+    line-height: 1.15em
+    padding: 0 1rem 
+    margin: 0 auto
+    +smallscreens
+        font-size: 1.3em
+        line-height: 1.15
+        max-width: 100%
+//Right Section Styles
+.right-section
+    width: 50%
+    +smallscreens
+        width: 100%
+        height: 60%
+        position: absolute
+        bottom: 0
+.svgimg
+    position: absolute
+    bottom: 0
+    padding-top: 10vh
+    padding-left: 1vh
+    max-width: 100%
+    max-height: 100%
+    +smallscreens
+        padding: 0
+    .bench-legs
+        fill: $black
+    .top-bench, .bottom-bench
+        stroke: $black 
+        stroke-width: 1px
+        fill: #5B3E2B
+    .bottom-bench path:nth-child(1)
+        fill: darken(#5B3E2B,7%)
+    .lamp-details
+        fill: $gray
+    .lamp-accent
+        fill: lighten($gray, 5%)
+    .lamp-bottom
+        fill: linear-gradient($gray, $black)
+    .lamp-light
+        fill: #EFEFEF
+
+@keyframes glow
+    0%
+        text-shadow: 0 0 1rem #fefefe
+    50% 
+        text-shadow: 0 0 1.85rem #ededed
+    100%
+        text-shadow: 0 0 1rem #fefefe
+@keyframes fadeIn
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+._0rujefda, ._ewiorjweureowew
+    &::-webkit-scrollbar
+        width: 9px
+    &::-webkit-scrollbar-track
+    &::-webkit-scrollbar-thumb
+        border-radius: 80px !important
+        background-color: #dadce0
+._9w9wejdmw
+    right: 16px
+    bottom: 16px

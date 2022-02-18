@@ -5,7 +5,7 @@ const IndexS= (props: any)=> {
     const classes= useStyles()
     return (
         <div className={classes.indexComponentF}>
-            <IndexCoreB isSharing={props.isSharing} />
+            <IndexCoreB fullScreening={props.fullScreening} setFullScreening={props.setFullScreening} handleFullScreen={props.handleFullScreen} handleExitFullScreen={props.handleExitFullScreen} isSharing={props.isSharing} />
         </div>
     )
 }

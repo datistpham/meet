@@ -6,11 +6,15 @@ import { lazy, Suspense } from "react"
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { useState } from "react"
 import { useEffect } from "react"
+import LinearProgress from '@mui/material/LinearProgress'
+import { Box } from "@mui/material"
+import { Fragment } from "react"
 const CcVideoS3= lazy(()=> import("./CcVideoS3"))
 
 const CcVideoVip= (props: any)=> {
     const [microConnect, setMicroConnect]= useState<{micro: boolean, toggleVideo: boolean}>(()=> ({micro: true, toggleVideo: false}))
     // const { userVideo }= useContext(ContextRoom)
+    const { test }= useContext(ContextRoom)
     
     useEffect(()=> {
         setTimeout(()=> {
@@ -32,13 +36,30 @@ const CcVideoVip= (props: any)=> {
                 microConnect.micro=== true &&
                 <MicroConnected />
             }
+            {
+                test=== false &&
+                <Fragment>
+                    <div style={{position: 'absolute', bottom: 0 , width: '100%', zIndex: 1001  , height: 4}}><LinearProgress style={{height: '100%'}} /></div>
+                    <TitleCameraRunning />
+                </Fragment>
+            }
+            
         </div>
+    )
+}
+const TitleCameraRunning= ()=> {
+    return (
+        <Box style={{width: '100%', height: "100%", zIndex: 1000,position: 'absolute', top: 0, left: 0,display: 'flex', justifyContent: 'center',alignItems: 'center', backgroundColor: "#000"}}>
+            <span style={{fontSize:24, color: "#fff",}}>Camera is running</span>
+        </Box>
     )
 }
 export const VideoC= ()=> {
     const { userVideo }= useContext(ContextRoom)
     return (
-        <CcVideoS3 userVideo={userVideo} />
+        <div style={{position: 'relative'}}>
+            <CcVideoS3 userVideo={userVideo} />
+        </div>
     )
 }
 export const TitleCameraOff= ()=> {

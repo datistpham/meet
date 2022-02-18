@@ -12,6 +12,8 @@ import { ContextT } from "../../../../T"
 import { useStore } from "../../../../../../../zustand/store"
 
 import ShareScreen from "./Functionality/ShareScreen/ShareScreen"
+import MoreOptions from "./Functionality/MoreOptions/MoreOptions"
+import EndCallFunc from "./Functionality/EndCall/F/EndCallFunc"
 const initialState: StateIndexCoreB = {
     checkVideo: true,
     checkAudio: true,
@@ -37,8 +39,8 @@ const IndexCoreB= (props: any)=> {
             <CoreB actionF={toggleCheckAudio} actionF2={state.checkAudio=== true ? (()=> turnOffMicro()) : (()=> turnOnMicro())} actionF3={()=> console.log()} backgroundColor={state.checkAudio=== true ? "#3c4043" : "#ea4335"} borderColor="transparent" icon={state.checkAudio=== true ? <MicIcon /> : <MicOffIcon />} title={state.checkAudio=== true ? "Turn off micro" : "Turn on micro"} />
             <CoreB actionF={toggleCheckVideo} actionF2={state.checkVideo=== true ? (()=> turnOffCamera()) : (()=> turnOnCamera())} actionF3={()=> console.log()} backgroundColor={state.checkVideo=== true ? "#3c4043" : "#ea4335"} borderColor="transparent" icon={state.checkVideo=== true ? <VideocamOutlinedIcon /> : <VideocamOffOutlinedIcon />} title={state.checkVideo=== true ? "Turn on camera" : "Turn off camera"} />
             <ShareScreen isSharing={props.isSharing} />
-            <CoreB actionF1={()=> console.log()} actionF2={()=> console.log()} actionF3={()=> console.log()}backgroundColor={"#3c4043"} borderColor="transparent" icon={<MoreVertIcon />} title="Other options"  />
-            <CoreB actionF1={()=> console.log()} actionF2={()=> console.log()} actionF3={()=> console.log()} backgroundColor={"#ea4335"} borderColor="transparent" icon={<CallEndIcon />} title="Leave call"  />
+            <MoreOptions fullScreening={props.fullScreening} setFullScreening={props.setFullScreening} handleFullScreen={props.handleFullScreen} handleExitFullScreen={props.handleExitFullScreen} />
+            <EndCallFunc />
             
         </div>
     )

@@ -14,7 +14,7 @@ const Pseudo= ()=> {
     const { photoUrl }= useContext(MyContext)
     if(photoUrl!== null && photoUrl!== undefined) {
         return (
-            <div className="_293iekd" style={{width: "100%", height: '100%', position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1, display: "flex", justifyContent: "center", alignItems: 'center'}}>
+            <div className="_293iekd" style={{width: "100%", height: '100%', position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1, display: "flex", justifyContent: "center", alignItems: 'center', backgroundColor: "#36373a", borderRadius: 10}}>
                 <ImageWrapper src={photoUrl} alt="open" referrerPolicy="no-referrer" >
                     
                 </ImageWrapper>

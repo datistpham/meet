@@ -1,4 +1,4 @@
-import ButtonJoinMeetingRoom from "./JoinMeetingRoom/ButtonNewJoinMeetingRoom"
+import ButtonJoinMeetingRoom from "./JoinMeetingRoom/ButtonJoinMeetingRoom"
 import ButtonNewMeetingRoom from "./NewMeetingRoom/ButtonNewMeetingRoom"
 import { useStyles } from "../../Index"
 

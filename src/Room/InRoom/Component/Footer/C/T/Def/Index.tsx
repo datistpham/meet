@@ -5,7 +5,7 @@ const IndexT= (props: any)=> {
     const classes= useStyles()
     return (
         <div className={classes.indexComponentF} >
-            <CM />
+            <CM open={props.open} p1Open={props.p1Open} p2Open={props.p2Open} p3Open={props.p3Open} p4Open={props.p4Open} p5Open={props.p5Open} setPopuptrue={props.setPopuptrue} />
         </div>
     )
 }

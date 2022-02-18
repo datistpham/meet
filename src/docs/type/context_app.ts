@@ -25,6 +25,7 @@ export interface Context {
     toggleAudioParallel: any
     joined: boolean
     setJoined: ()=> void
+    current?:any
 }
 
 export interface Context2 {
@@ -33,4 +34,9 @@ export interface Context2 {
     cannotRunVideo: boolean
     idSelf: string
     userList: any
+    test: boolean
+    leave: boolean
+    leaveRoom: any,
+    joinRoomAgain: any   
+    bossRoom: string
 }

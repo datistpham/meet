@@ -1,8 +1,9 @@
 import { Container, Section1, Section11, Section12, Close } from "../C1/C1"
 import styled from "styled-components"
 import Switch from '@mui/material/Switch'
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined'
+import FrameChat from "./FrameChat"
 
+// import $ from "jquery"
 
 const Section2= styled.div`
     width: 100%;
@@ -28,14 +29,14 @@ const Section3= styled(Section21)`
     font-size: 12px;
     text-align: center;
 `
-const Section4= styled.div`
+export const Section4= styled.div`
     width: 312px;
     height: 316px;
     box-sizing: content-box;
     padding: 14px 24px;
     overflow: auto;
 `
-const Section5= styled.div`
+export const Section5= styled.div`
     height: 48px;
     width: 330px;
     margin: 15px;
@@ -46,13 +47,13 @@ const Section5= styled.div`
     align-items: center;
 `
 
-const Section51= styled.div`
+export const Section51= styled.div`
     width: calc(100% - 48px);
     display: flex; 
     justify-content: center;
     align-items: center;
 `
-const Section512= styled.textarea`
+export const Section512= styled.textarea`
     width: 100%;
     height: 24px;
     font-size: 14px;
@@ -66,14 +67,48 @@ const Section512= styled.textarea`
     line-height: 24px;
     padding: 0 10px
 `
-const Section52= styled.div`
+export const Section52= styled.div`
     width: 48px;
     height: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer
 `
+const ContentMessage= styled.div`
+    width: 100%;
+    box-sizing: border-box;
+    
+`
+const SectionContentMessage1= styled.div`
+    height: 20px
+`
+const SectionContentMessage11= styled.span`
+    color: #202124;
+    font-size: 13px;
+    font-weight: 600;
+    padding-right: 8px;
+`
+const SectionContentMessage12= styled.span`
+    color: #5f6368;
+    font-size: 12px
+`
+const SectionContentMessage2= styled(SectionContentMessage11)`
+    font-weight: 400
+`
+export const PerMessage= (props: any)=> {
+    return (
+        <ContentMessage>
+            <SectionContentMessage1 style={{height: props.height, paddingTop: props.paddingTop}}>
+                <SectionContentMessage11>{props.username}</SectionContentMessage11>
+                <SectionContentMessage12>{props.timestamp}</SectionContentMessage12>
+            </SectionContentMessage1>
+            <SectionContentMessage2>{props.text}</SectionContentMessage2>
+        </ContentMessage>
+    )
+}
 const C3= (props: any)=> {
+    
     return (
         <Container>
             <Section1>
@@ -95,19 +130,7 @@ const C3= (props: any)=> {
             <Section3>
                 Message will only show for people who join meeting room and will be deleted when call ended
             </Section3>
-            <Section4 className="_0rujefda">
-                
-            </Section4>
-            <Section5>  
-                <Section51>
-                    <Section512 placeholder="Send message to everyone">
-
-                    </Section512>
-                </Section51>
-                <Section52>
-                    <SendOutlinedIcon style={{width: 24, height: 24, color: 'rgba(60,64,67,0.38)'}} />
-                </Section52>
-            </Section5>
+            <FrameChat messageRoom={props.messageRoom} setMessageRoom={props.setMessageRoom} />
         </Container>
     )
 }

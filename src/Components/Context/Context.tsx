@@ -9,10 +9,11 @@ interface Context {
     email?: string | null
     photoUrl?: string | null
     username?: string | null
-    refreshInfo?: any,
-    newRoom?: string | null,
-    createNewRoomLater?: any,
+    refreshInfo?: any
+    newRoom?: string | null
+    createNewRoomLater?: any
     socketRefB?: any
+    tokenId?: string
 }
 type Props = {
     children: React.ReactNode
@@ -23,13 +24,14 @@ const initialContext: Context = {
     username: "",
     refreshInfo: null,
     newRoom: "",
-    socketRefB: null
+    socketRefB: null,
+    tokenId: ""
 }
 const MyContext = createContext<Context>(initialContext)
 const ContextApp = ({ children }: Props): JSX.Element => {
     const auth = getAuth()
     const socketRefB = useRef<any>(() => null)
-    const [user, setUser] = useState<Context | null>({ email: "", photoUrl: null, username: null, newRoom: "" })
+    const [user, setUser] = useState<Context | null>({ email: "", photoUrl: null, username: null, newRoom: "", tokenId: ""})
     // eslint-disable-next-line
     const listRoom = useState<Array<string>>(() => [])
     const newPieceOfUrl = "s200-c"
@@ -38,7 +40,7 @@ const ContextApp = ({ children }: Props): JSX.Element => {
         socketRefB.current = io("http://localhost:4000/", { transports: ["websocket", "polling"], withCredentials: true })
         auth.onAuthStateChanged(res => {
             if (res !== null) {
-                setUser(prev => ({ ...prev, email: res.email, photoUrl: res.photoURL?.replace(originalPieceOfUrl, newPieceOfUrl), username: res.displayName }))
+                setUser(prev => ({ ...prev, email: res.email, photoUrl: res.photoURL?.replace(originalPieceOfUrl, newPieceOfUrl), username: res.displayName, tokenId: res.uid }))
             }
         })
     }, [auth])
@@ -59,7 +61,8 @@ const ContextApp = ({ children }: Props): JSX.Element => {
                 username: user!.username,
                 refreshInfo: refreshInfo,
                 newRoom: user!.newRoom,
-                createNewRoomLater: createNewRoomLater, socketRefB: socketRefB
+                createNewRoomLater: createNewRoomLater, socketRefB: socketRefB,
+                tokenId: user!.tokenId
             }}>
             {children}
         </MyContext.Provider>

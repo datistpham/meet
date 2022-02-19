@@ -56,7 +56,8 @@ export const useStyles= makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 'max-content'
+        width: 'max-content',
+        whiteSpace: 'nowrap'
 
      },
      section3: {

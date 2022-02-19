@@ -69,7 +69,7 @@ export const Video= memo((props: any)=> {
 const ContextProVider= () => {
     const location: any= useLocation()
     const bossRoom=  useMemo(()=> (location?.state?.bossRoom || "member"), [location]) 
-    const { username, photoUrl }= useContext(MyContext)
+    const { username, photoUrl, tokenId }= useContext(MyContext)
     const { roomID }= useParams()
     const userVideo= useRef<any>(null)
     const socketRef= useRef<any>(null)
@@ -183,7 +183,7 @@ const ContextProVider= () => {
     // 
 
     const listUserF= ()=> {
-        socketRef.current.emit("user", {roomID, username, photoUrl, bossRoom})
+        socketRef.current.emit("user", {roomID, username, photoUrl, bossRoom, tokenId })
         socketRef.current.on("self", (data: any)=> {
             // console.log(data)
             setState((prev: any)=> ({...prev, idSelf: data.socketId}))

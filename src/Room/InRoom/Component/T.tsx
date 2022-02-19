@@ -13,6 +13,7 @@ import { useStore } from "../../../zustand/store"
 import { ShareScreen } from "../../../docs/f/ShareScreen"
 import { OpenType } from "../../../docs/type/opentype"
 import Invitation from "./Main/H/Invitation/Invitation"
+import _ from "lodash"
 
 // const H = lazy(() => {
 //     return new Promise((resolve: any) => {
@@ -34,7 +35,8 @@ const initialContext: ContextTType= {
     stream1: null,
     turnOffShare: null,
     turnOnShare: null,
-    refSharing: null
+    refSharing: null,
+    LRoom: null
 }
 export const ContextT= createContext(initialContext)
 const Tingting= ()=> {
@@ -99,6 +101,7 @@ const T= ()=> {
             initiator: false,
             trickle: false,
             stream,
+            
         })
         peer.on("signal", signal => {
             socketRef.current.emit("returning signal", { signal, callerID })
@@ -135,6 +138,7 @@ const T= ()=> {
                         peer
                     })
                     setPeers((users: any)=> [...users, peer])
+                    
                 })
                 socketRef.current.on("receiving returned signal", (payload: any)=> {
                     const item= peersRef.current.find((p: any)=> p.peerID=== payload.id)
@@ -145,9 +149,38 @@ const T= ()=> {
             }
         })()
     },[roomID, constraints, addPeer, createPeer, socketRef ])
-
-
-
+    // Leave room 
+    const LRoom= ()=> {
+        socketRef!.current.emit("leave room d", { roomID })
+        socketRef!.current.on("list update after leave", (users: any)=> {
+            // const peers: any= []
+            // users.forEach((userID: any)=> {
+            //     const peer= createPeer(userID, socketRef.current.id, stream1)
+            //     peersRef.current.push({
+            //         peerID: userID,
+            //         peer
+            //     })
+            //     peers.push(peer)
+            // })
+            // setPeers(peers)
+            
+        })
+        
+        // socketRef.current.on("user joined", (payload: any)=> {
+        //     const peer= addPeer(payload.signal, payload.callerID, stream1)
+        //     peersRef.current.push({
+        //         peerID: payload.callerID,
+        //         peer
+        //     })
+        //     setPeers((users: any)=> [...users, peer])
+        // })
+        // socketRef.current.on("receiving returned signal", (payload: any)=> {
+        //     const item= peersRef.current.find((p: any)=> p.peerID=== payload.id)
+        //     item.peer.signal(payload.signal)
+        // })
+    }
+    
+    //
     const turnOffCamera= async ()=> {
         await stream1.getVideoTracks().forEach((track: any) => track.enabled = false)
     }
@@ -205,6 +238,8 @@ const T= ()=> {
     const p5Open= ()=> {
         setOpen(prev=> ({...prev, p5: true, p1: false, p2: false, p3: false, p4: false}) )
     }
+    const [messageRoom, setMessageRoom]= useState<any>(()=> [])
+
     return (
         <ContextT.Provider value={{
             peers: peers, 
@@ -216,13 +251,13 @@ const T= ()=> {
             stream1: stream1,
             turnOffShare: turnOffShare,
             turnOnShare: turnOnShare,
-            refSharing: refSharing
+            refSharing: refSharing,
         }}>
             <InRoom>
                 <div ref={myRefJSX} className={`${classes.indexRoot} _3023`}>
                     <Tingting />
                         <Suspense fallback={<div></div>}>
-                            <M setPopupFalse={setPopupFalse} refSharing={refSharing} popup={popup} open={open} />
+                            <M messageRoom={messageRoom} setMessageRoom={setMessageRoom} setPopupFalse={setPopupFalse} refSharing={refSharing} popup={popup} open={open} />
                         </Suspense>
                         {
                             (bossRoom !== "member" && boxInvite=== true )&&
@@ -231,7 +266,7 @@ const T= ()=> {
                         {/* <Suspense fallback={<div></div>}>
                             <H />
                         </Suspense> */}
-                    <FooterIndex open={open} p1Open={p1Open} p2Open={p2Open} p3Open={p3Open} p4Open={p4Open} p5Open={p5Open} setPopuptrue={setPopupTrue} fullScreening={fullScreening} setFullScreening={setFullScreening} handleFullScreen={handleFullScreen} handleExitFullScreen={handleExitFullScreen} isSharing={()=> ShareScreen(refSharing, sharingFalseReal)} />
+                    <FooterIndex messageRoom={messageRoom} setMessageRoom={setMessageRoom} open={open} p1Open={p1Open} p2Open={p2Open} p3Open={p3Open} p4Open={p4Open} p5Open={p5Open} setPopuptrue={setPopupTrue} fullScreening={fullScreening} setFullScreening={setFullScreening} handleFullScreen={handleFullScreen} handleExitFullScreen={handleExitFullScreen} isSharing={()=> ShareScreen(refSharing, sharingFalseReal)} />
                 </div>
             </InRoom>
         </ContextT.Provider>

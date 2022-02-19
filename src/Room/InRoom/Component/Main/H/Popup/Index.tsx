@@ -20,7 +20,7 @@ const Popup= (props: any)=> {
 
             }
             {
-                props.open.p3=== true && <C3 setPopupFalse={props.setPopupFalse}  />
+                props.open.p3=== true && <C3 messageRoom={props.messageRoom} setMessageRoom={props.setMessageRoom} setPopupFalse={props.setPopupFalse}  />
 
             }
             {

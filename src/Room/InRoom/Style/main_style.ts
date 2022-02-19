@@ -91,6 +91,8 @@ export const useStyles= makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 12,
+        width: 48,
+        height: 48,
         borderRadius: '50%',
         transition: 'all .15s ease-in-out',
         "&:hover": {

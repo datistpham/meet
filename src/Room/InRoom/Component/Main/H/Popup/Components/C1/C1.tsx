@@ -21,6 +21,7 @@ export const Section1= styled.div`
 export const Section11= styled.div`
     font-size: 18px;
     font-weight: 600;
+    color: #5f6368
 `
 export const Section12= styled.div`
     width: 48px;

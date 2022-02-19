@@ -32,12 +32,20 @@ io.on('connection', socket => {
         const usersInThisRoom = users[roomID].filter(id => id !== socket.id)
         // console.log(usersInThisRoom)
         socket.emit("number of users", usersInThisRoom.length)
+        console.log(socket.id)
         socket.emit("all users", usersInThisRoom)
+    })
+    socket.on("leave room d", ({roomID})=> {
+        // console.log(roomID)
+        // console.log(users[roomID])
+        _.remove(users[roomID], id=> id.toString() === socket.id.toString())
+        console.log(users[roomID])
+        socket.emit("list update after leave", users[roomID])
     })
     socket.on("get number users", (data)=> {
         const usersInThisRoom= users[data.roomID]
         // console.log(usersInThisRoom)
-        if(usersInThisRoom.length !== undefined) {
+        if(usersInThisRoom?.length !== undefined) {
             socket.emit("number user from server", { length: usersInThisRoom.length || 1})
         }
 
@@ -50,11 +58,11 @@ io.on('connection', socket => {
                 socket.emit("room full")
                 return
             }
-            usersInfo[data.roomID].push({socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom})
+            usersInfo[data.roomID].push({socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom, tokenId: data.tokenId})
         } else {
-            usersInfo[data.roomID] = [{socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom}]
+            usersInfo[data.roomID] = [{socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom, tokenId: data.tokenId}]
         }
-        io.to(socket.id).emit("self", {socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom})
+        io.to(socket.id).emit("self", {socketId: socket.id, photoUrl: data.photoUrl, userName: data.username, position: data.bossRoom, tokenId: data.tokenId})
         const userInThisRoomInfo= usersInfo[data.roomID]
         // console.log(userInThisRoomInfo)
         socket.emit("all-list-user", {allListUser: userInThisRoomInfo})

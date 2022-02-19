@@ -9,4 +9,5 @@ export interface ContextTType {
     turnOffShare: any
     turnOnShare: any
     refSharing: any
+    LRoom?: any
 }

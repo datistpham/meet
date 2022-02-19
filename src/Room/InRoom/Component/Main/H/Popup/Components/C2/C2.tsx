@@ -8,10 +8,13 @@ import { createRef, forwardRef } from "react";
 import { getListMember } from "../../../../../../../../recoil/selector"
 import { useRecoilValue } from "recoil"
 import { nanoid } from "nanoid"
+import { useContext } from "react"
+import { MyContext } from "../../../../../../../../Components/Context/Context"
 interface Itemtype {
     photoUrl: string
     userName: string
-    position?: string
+    position?: string,
+    tokenId?: string
 }
 
 const Section2= styled.div`
@@ -42,6 +45,8 @@ const Section211= styled.div`
     text-align: center;
     font-size: 14px;
     box-sizing: content-box;
+    font-weight: 600;
+    color: #5f6368
 `
 
 const Section3= styled.div`
@@ -66,6 +71,7 @@ const Section311= styled.div`
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    border: 1px solid #5f6368;
     &:focus {
         outline: 1px solid #2e89ff;
     }
@@ -151,6 +157,7 @@ const Section511221= styled.div`
     color: #000000de;
     text-align: left;
     width: 100%;
+    font-weight: 600;
 `
 const Section511222= styled.div`
     font-size: 12px;
@@ -166,6 +173,7 @@ const Section511211= styled.img`
 const ref: any= createRef()
 const C2= (props: any)=> {
     const listMemberRooms= useRecoilValue(getListMember)
+    const { tokenId }= useContext(MyContext)
     return (
         <Container>
             <Section1>
@@ -174,19 +182,19 @@ const C2= (props: any)=> {
             </Section1>
             <Section2>
                 <Section21>
-                    <MicOffOutlinedIcon style={{width: 24, height: 24}} />
+                    <MicOffOutlinedIcon style={{width: 24, height: 24, color :'#5f6368'}} />
                     <Section211>
                         Muted all 
                     </Section211>
                 </Section21>
                 <Section21>
-                    <PersonAddAltOutlinedIcon style={{width: 24, height: 24}} />
+                    <PersonAddAltOutlinedIcon style={{width: 24, height: 24, color :'#5f6368'}} />
                     <Section211>
                         Add member
                     </Section211>
                 </Section21>
                 <Section21>
-                    <ToggleOffOutlinedIcon style={{width: 24, height: 24}} />
+                    <ToggleOffOutlinedIcon style={{width: 24, height: 24, color :'#5f6368'}} />
                     <Section211>
                         Controller's organizer    
                     </Section211>
@@ -195,7 +203,7 @@ const C2= (props: any)=> {
             <Section3>
                 <Section31>
                     <Section311 ref={ref}>
-                        <Section3111><SearchOutlinedIcon /></Section3111>
+                        <Section3111><SearchOutlinedIcon style={{color: '#5f6368'}} /></Section3111>
                         <Section3112C />
                     </Section311>
                 </Section31>
@@ -217,7 +225,10 @@ const C2= (props: any)=> {
                                 <Section51122>
                                     <Section511221>
                                         {
-                                            item.userName
+                                            item.userName 
+                                        }
+                                        {
+                                            tokenId=== item.tokenId && " (You)"            
                                         }
                                     </Section511221>
                                     <Section511222>

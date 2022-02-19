@@ -10,7 +10,7 @@ const FooterIndex= (props: any)=> {
         <div className={`${classes.footerIndex} _3904 S3RDod`} >
             <IndexF />
             <IndexS fullScreening={props.fullScreening} setFullScreening={props.setFullScreening} handleFullScreen={props.handleFullScreen} handleExitFullScreen={props.handleExitFullScreen} isSharing={props.isSharing} />
-            <IndexT open={props.open} p1Open={props.p1Open} p2Open={props.p2Open} p3Open={props.p3Open} p4Open={props.p4Open} p5Open={props.p5Open} setPopuptrue={props.setPopuptrue} />
+            <IndexT messageRoom={props.messageRoom} setMessageRoom={props.setMessageRoom} open={props.open} p1Open={props.p1Open} p2Open={props.p2Open} p3Open={props.p3Open} p4Open={props.p4Open} p5Open={props.p5Open} setPopuptrue={props.setPopuptrue} />
         </div>
     )
 }

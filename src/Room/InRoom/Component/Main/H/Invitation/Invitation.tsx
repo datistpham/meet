@@ -8,6 +8,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard'
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
 import { Tooltip } from "@mui/material"
 import { MyContext } from "../../../../../../Components/Context/Context"
+import { sendLink } from "../../../../../../docs/f/sendlink"
 
 
 const Invitation= (props:any)=> {
@@ -62,12 +63,20 @@ const Container= ()=> {
 //
 const Section2= (props: any)=> {
     const classes= useStyles()
+    const { username }= useContext(MyContext)
+    const { roomID }= useParams()
+    const shareLink= {
+        title: 'From meet',
+        text: `${username} want invite you join his meeting room`,
+        url: `https://localhost:3000/${roomID}`
+    }
+    
     return (
         <div className={classes.section2}>
             <div className={classes.buttonsection2}>
                 <PersonAddAltIcon style={{width: 24, height: 24, color: "#fff", marginRight: 8, fontWeight: 600}} />
-                <div style={{fontSize: 14, fontWeight: 600, color: "#fff", cursor: 'pointer '}}>
-                    Add other people
+                <div onClick={()=> sendLink(shareLink)} style={{fontSize: 14, fontWeight: 600, color: "#fff", cursor: 'pointer '}}>
+                    Add member
                 </div>
             </div>
         </div>

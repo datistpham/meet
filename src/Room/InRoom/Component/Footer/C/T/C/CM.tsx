@@ -6,6 +6,7 @@ import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
 import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory'
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined'
 import CCoreNumber from "./CCoreNumber"
+import CCoreNumber2 from "./CCoreNumber2"
 
 const CM= (props: any)=> {
     const classes= useStyles()
@@ -14,7 +15,7 @@ const CM= (props: any)=> {
             <div className={classes.cm2}>
                 <CCore pOpen={props.p1Open} setPopuptrue={props.setPopuptrue} icon={<InfoOutlinedIcon />} title="Detail about meeting" />
                 <CCoreNumber pOpen={props.p2Open} setPopuptrue={props.setPopuptrue} icon={<PeopleAltOutlinedIcon />} title="Show all people" />
-                <CCore pOpen={props.p3Open} setPopuptrue={props.setPopuptrue} icon={<ChatOutlinedIcon />} title="Chat with everyone" />
+                <CCoreNumber2 messageRoom={props.messageRoom} setMessageRoom={props.setMessageRoom} pOpen={props.p3Open} setPopuptrue={props.setPopuptrue} icon={<ChatOutlinedIcon />} title="Chat with everyone"  />
                 <CCore pOpen={props.p4Open} setPopuptrue={props.setPopuptrue} icon={<ChangeHistoryIcon />} title="Activities" />
                 <CCore pOpen={props.p5Open} setPopuptrue={props.setPopuptrue} icon={<SecurityOutlinedIcon />} title="Dashboard's boss" />
 

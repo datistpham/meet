@@ -32,10 +32,10 @@ const M= (props: any)=> {
                 <VideoShare myRef={props.refSharing} />  
             }
             <Suspense fallback={<div></div>}>
-                <VideoSpecialIndex  popup={props.popup} sharing={sharing} />
+                <VideoSpecialIndex aff={props.aff} popup={props.popup} sharing={sharing} />
             </Suspense>
             {
-                <Popup setPopupFalse={props.setPopupFalse} open={props.open} popup={props.popup} />
+                <Popup messageRoom={props.messageRoom} setMessageRoom={props.setMessageRoom} setPopupFalse={props.setPopupFalse} open={props.open} popup={props.popup} />
             }
             
             <Indentify />
